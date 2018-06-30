@@ -1,5 +1,10 @@
 function gi(listview) {
-            var checked_bugs = listview.get_checked_items(true);
+            // console.log(listview)
+            var checked_bugs = [];
+            var a2 = listview.get_checked_items();
+            for (var i=0; i<a2.length; i++){
+                checked_bugs.push(a2[i].name)
+            }
             // debugger;
             if (checked_bugs.length > 0) {
                 frappe.call({
@@ -9,35 +14,35 @@ function gi(listview) {
                     },
                     callback: function(r) {
                         console.log(r.message)
-                       // if(r.message){
-                       //      var arr = [];
-                       //      for (var i = 0; i < r.message.length; i++) {
-                       //          if (r.message[i].name != "Administrator" && r.message[i].name != "Guest") {
-                       //              arr.push({
-                       //                  "label": r.message[i][0],
-                       //                  "fieldname": r.message[i][0],
-                       //                  "fieldtype": "Check"
-                       //              })
-                       //          }
-                       //      }
-                       //      var d = new frappe.ui.Dialog({
-                       //          title: __('Share Bugs'),
-                       //          fields: arr,
-                       //          primary_action: function() {
-                       //              var obj = d.get_values();
-                       //              var result = Object.keys(obj).map(function(key) {
-                       //                  return [(key), obj[key]];
-                       //              });
-                       //              console.log(result)
-                       //              var method = "pms.pms.doctype.bug_sheet.bug_sheet.post";
-                       //              listview.call_for_selected_items(method, { "user": result, "doctype": cur_list.doctype });
-                       //              d.hide();
-                       //          },
-                       //          primary_action_label: __('Share Bugs')
-                       //      });
-                       //      d.show();
-                       //  }
-                       //  else{frappe.msgprint('Projects related to the bugs are not shared to any users!!!')}
+                       if(r.message){
+                            var arr = [];
+                            for (var i = 0; i < r.message.length; i++) {
+                                if (r.message[i].name != "Administrator" && r.message[i].name != "Guest") {
+                                    arr.push({
+                                        "label": r.message[i][0],
+                                        "fieldname": r.message[i][0],
+                                        "fieldtype": "Check"
+                                    })
+                                }
+                            }
+                            var d = new frappe.ui.Dialog({
+                                title: __('Share Bugs'),
+                                fields: arr,
+                                primary_action: function() {
+                                    var obj = d.get_values();
+                                    var result = Object.keys(obj).map(function(key) {
+                                        return [(key), obj[key]];
+                                    });
+                                    console.log(result)
+                                    var method = "pms.pms.doctype.bug_sheet.bug_sheet.post";
+                                    listview.call_for_selected_items(method, { "user": result, "doctype": cur_list.doctype });
+                                    d.hide();
+                                },
+                                primary_action_label: __('Share Bugs')
+                            });
+                            d.show();
+                        }
+                        else{frappe.msgprint('Projects related to the bugs are not shared to any users!!!')}
 
                     }
                 });

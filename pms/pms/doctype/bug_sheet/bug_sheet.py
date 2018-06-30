@@ -17,12 +17,12 @@ def get_users(names):
 	names = json.loads(names)
 	name = tuple(names)
 	params = {'l': name}
-	# projects = frappe.db.sql('''select distinct project from `tabBug Sheet` where name in %(l)s''',params)
-	# projects = tuple(projects)
-	# params1 = {'u': projects}
-	# users = frappe.db.sql('''select distinct user from `tabDocShare` where share_name in %(u)s''',params1)
+	projects = frappe.db.sql('''select distinct project from `tabBug Sheet` where name in %(l)s''',params)
+	projects = tuple(projects)
+	params1 = {'u': projects}
+	users = frappe.db.sql('''select distinct user from `tabDocShare` where share_name in %(u)s''',params1)
 	
-	return params
+	return users
 	
 
 @frappe.whitelist()
