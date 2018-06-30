@@ -156,12 +156,12 @@ function vi() {
 frappe.listview_settings['Bug Sheet'] = {
     add_fields: ["status", "priority"],
     onload: function(listview) {
-        listview.page.fields_dict.module.get_query = function(doc) {
-            return { filters: { project: listview.page.fields_dict.project.value } }
-        }
-        listview.page.fields_dict.screen.get_query = function(doc) {
-            return { filters: { project: listview.page.fields_dict.project.value, module: listview.page.fields_dict.module.value } }
-        }
+        // listview.page.fields_dict.module.get_query = function(doc) {
+        //     return { filters: { project: listview.page.fields_dict.project.value } }
+        // }
+        // listview.page.fields_dict.screen.get_query = function(doc) {
+        //     return { filters: { project: listview.page.fields_dict.project.value, module: listview.page.fields_dict.module.value } }
+        // }
 
         
         listview.page.add_action_icon("fa fa-share-alt", function() {
