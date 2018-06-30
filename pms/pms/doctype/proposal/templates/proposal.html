@@ -20,11 +20,13 @@ td, th {
     </style>
 {% endblock %}
 {% block page_content %}
-
+<div id="page_id" style="display: none;">{{name}}</div>
 <div class="actionbtns">
+  
   <button onclick="accept()" id="acceptbtn" class="btn btn-primary btn-sm primary-action"><i class="visible-xs octicon octicon-plus"></i><span class="hidden-xs">Accept</span></button>
-
+ 
   <button onclick="reject()" id="rejectbtn" class="btn btn-primary btn-sm primary-action"><i class="visible-xs octicon octicon-plus"></i><span class="hidden-xs">Reject</span></button>
+  
 </div>
 
 <div class="contentsinform">

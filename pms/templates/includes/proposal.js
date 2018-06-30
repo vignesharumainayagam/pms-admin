@@ -1,9 +1,11 @@
+var id = $('#page_id').html();
 function accept() {
+
 			frappe.call({
 					method: "frappe.client.set_value",
 					args: {
 						doctype: "Proposal",
-						name: window.location.pathname.split('/')[2],
+						name: id,
 						fieldname: "status",
 						value: "Accept",
 					},
@@ -22,7 +24,7 @@ function reject() {
 					method: "frappe.client.set_value",
 					args: {
 						doctype: "Proposal",
-						name: window.location.pathname.split('/')[2],
+						name: id,
 						fieldname: "status",
 						value: "Reject",
 					},
