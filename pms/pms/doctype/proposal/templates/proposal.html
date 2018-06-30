@@ -1,0 +1,87 @@
+{% extends "templates/web.html" %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.actionbtns{
+  float: right;
+}
+    </style>
+{% endblock %}
+{% block page_content %}
+
+<div class="actionbtns">
+  <button onclick="accept()" id="acceptbtn" class="btn btn-primary btn-sm primary-action"><i class="visible-xs octicon octicon-plus"></i><span class="hidden-xs">Accept</span></button>
+
+  <button onclick="reject()" id="rejectbtn" class="btn btn-primary btn-sm primary-action"><i class="visible-xs octicon octicon-plus"></i><span class="hidden-xs">Reject</span></button>
+</div>
+
+<div class="contentsinform">
+	{% for i in contents %}
+	
+	<div style="float: left; width: 100%;">
+	<h2>{{i.title}}</h2>
+	<br>
+	<p>{{i.content}}</p>
+	</div>	
+
+	{% endfor %}
+
+</div>
+
+<table>
+  <tr>
+    <th>Item</th>
+    <th>Description</th>
+    <th>Price</th>
+    <th>Qty</th>
+    <th>Rate</th>
+  </tr>
+
+  {% for v in items %}
+  <tr>
+    <td>{{v.item}}</td>
+    <td>{{v.description}}</td>
+    <td>{{v.price}}</td>
+    <td>{{v.qty}}</td>
+    <td>{{v.rate}}</td>
+  </tr>
+  {% endfor %}	
+</table> 	
+
+<table style="float: right; width: 40%; border: none; margin-right: -90px;">
+  <tr>
+    <th style="border: none;">Sub Total</th>
+    <th style="border: none;">{{sub_total}}</th>    
+  </tr>
+
+   <tr>
+    <th style="border: none;">Tax</th>
+    <th style="border: none;">{{tax}}</th>    
+  </tr>
+  
+   <tr>
+    <th style="border: none;">Grand Total</th>
+    <th style="border: none;">{{grand_total}}</th>    
+  </tr>	
+</table> 	
+
+
+{% endblock %}
+
+
+{% block script %}
+	<script>{% include "templates/includes/proposal.js" %}</script>
+{% endblock %}
+

@@ -21,6 +21,10 @@ def get_data():
 				{
 					"type": "doctype",
 					"name": "Functionality"
+				},
+				{
+					"type": "doctype",
+					"name": "Website Workflow"
 				}
 			]
 		},
@@ -54,6 +58,14 @@ def get_data():
 				{
 					"type": "doctype",
 					"name": "Validation"
+				},
+				{
+					"type": "doctype",
+					"name": "Proposal"
+				},
+				{
+					"type": "doctype",
+					"name": "Proposal Template"
 				}
 			]
 		},		
