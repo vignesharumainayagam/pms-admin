@@ -52,9 +52,9 @@ function gi(listview) {
 }
 
 
-function vi() {
+function vi(listview) {
         var zTreeObj;
-        function myOnClick(event, treeId, treeNode) {
+        function myOnClick(event, treeId, treeNode, listview) {
             
            var day = '';
                     $('[data-fieldname="project"]').val(null);
@@ -66,18 +66,18 @@ function vi() {
                     $('[data-fieldname="project"]').val(treeNode.idname);
                     $('[data-fieldname="module"]').val(null);
                     $('[data-fieldname="screen"]').val(null);
-                    cur_list.refresh();
+                    listview.refresh();
                     break;
                 case 'module':
                     $('[data-fieldname="project"]').val(treeNode.getParentNode().idname);
                     $('[data-fieldname="module"]').val(treeNode.idname);
-                    cur_list.refresh();
+                    listview.refresh();
                     break;
                 case 'screen':
                     $('[data-fieldname="project"]').val(treeNode.getParentNode().getParentNode().idname);
                     $('[data-fieldname="module"]').val(treeNode.getParentNode().idname);
                     $('[data-fieldname="screen"]').val(treeNode.idname);
-                    cur_list.refresh();
+                    listview.refresh();
                     break;
                 case 'bug':
                     frappe.set_route("Form", "Bug Sheet", treeNode.idname);
@@ -168,19 +168,19 @@ frappe.listview_settings['Bug Sheet'] = {
         // listview.page.fields_dict.screen.get_query = function(doc) {
         //     return { filters: { project: listview.page.fields_dict.project.value, module: listview.page.fields_dict.module.value } }
         // }
-        console.log(listview.refresh)
+
         listview.page.add_action_icon("fa fa-share-alt", function() {
             gi(listview)
         });
-    	vi();
+    	vi(listview);
 
     },
     refresh: function (listview) {
         // body...
-        vi();
+        vi(listview);
     },
     before_render: function(listview) {
-        vi();
+        vi(listview);
     },
     get_indicator: function(doc) {
         
