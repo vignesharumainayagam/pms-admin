@@ -177,7 +177,7 @@ frappe.listview_settings['Bug Sheet'] = {
     },
     get_indicator: function(doc) {
         
-        // vi();
+        vi();
         if (doc.status == "Fixed") {
             return [__("Fixed"), "orange"];
         } else if (doc.status == "Verified") {
