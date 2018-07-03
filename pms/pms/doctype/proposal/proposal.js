@@ -26,8 +26,30 @@ frappe.ui.form.on('Proposal', {
 
 							}
 			});
+	},
+	currency: function (frm) {
+		var current_currency = frm.doc.currency
+		
+		frappe.call({
+			method: 'frappe.client.get_value',
+			args: {
+				doctype: "Currency",
+				filters: {"name": frm.doc.currency},
+				fieldname: "symbol"
+			},
+			callback: function(r){
+				if(r.message){
+					frm.set_value('symbol',r.message.symbol)
+					frm.set_currency_labels(["sub_total", "tax", "grand_total", "price"], current_currency);
+					// var row = frappe.model.add_child(frm.doc, "Proposal Child", "items");
+				}
+			}
+		})
 	}
 });
+
+ 
+	
 
 frappe.ui.form.on("Proposal Child", "rate", function multiply_quantity(frm, cdt, cdn) {
 	var d = locals[cdt][cdn];

@@ -178,7 +178,7 @@ function go_go(a) {
       }
     }
 
-    $('.filter_list').html('<input id="citySel" type="text" placeholder="Filters" readonly value="" style="width:90%; margin-left: 13px;"/>');
+    $('.filter_list').html('<input id="citySel" type="text" placeholder="Filters" readonly value="" style="width: 100%;margin-left: 0;border: 1px solid transparent;padding: 5px 10px;margin-top: 0px;border-right: 1px solid rgb(221, 221, 221);border-bottom: 1px solid rgb(221, 221, 221);border-left: 1px solid rgb(221, 221, 221);"/>');
     $('.filter_list').append('<div id="menuContent" class="menuContent" style="display:none; position: absolute;"> <ul id="treeDemo" class="ztree" style="margin-top:0; width:100%;"></ul> </div>');
     $('.filter_list').append('<div id="listContent" style="display:block; position: absolute; width: 100%;"></div>');
     $.fn.zTree.init($("#treeDemo"), setting, zNodes);
@@ -222,6 +222,33 @@ frappe.ui.form.on('Bug Sheet', {
 	},
   refresh: function (frm) {
     yu()
+    frappe.call({
+      method: 'frappe.client.get_list',
+      args: {
+        doctype: 'Bug Sheet',
+        fields: ['name', 'bug_title']
+      },
+      callback: function (r) {
+          var pop = '';
+          if(r.message){
+          for (var i = 0; i < r.message.length; i++) {
+            
+              $('#menuContent').hide();
+              $('#listContent').show();
+              pop = pop + '<div href="#Form/Bug%20Sheet/'+r.message[i].name+'" \
+                                        data-link="Form/Bug%20Sheet/'+r.message[i].name+'" \
+                                        onclick="detailfield(this)" \
+                                        style="padding:12px; border-bottom: 1px solid #e6e2e2;" \
+                                        class="sel">\
+                                        <h2 style="font-size: 12px; font-weight: 500; margin: 0;  color: #333;">\
+                                        <strong>'+r.message[i].bug_title+'</strong>\
+                                        </h2> </div>'
+             
+            }
+          }
+           $('#listContent').html(pop);        
+      }
+    })
   }
 });
 
