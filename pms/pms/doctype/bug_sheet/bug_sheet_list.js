@@ -175,6 +175,10 @@ frappe.listview_settings['Bug Sheet'] = {
     	vi();
 
     },
+    refresh: function (listview) {
+        // body...
+        vi();
+    },
     before_render: function(listview) {
         vi();
     },
