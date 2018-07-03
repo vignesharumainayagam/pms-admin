@@ -153,6 +153,7 @@ function vi() {
         var zNodes = go(a)
 
         $(document).ready(function() {
+            
             $(".filter_list").html('<ul id="treeDemo" class="ztree"></ul>');
             zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
         });
@@ -168,16 +169,17 @@ frappe.listview_settings['Bug Sheet'] = {
         //     return { filters: { project: listview.page.fields_dict.project.value, module: listview.page.fields_dict.module.value } }
         // }
 
-        
         listview.page.add_action_icon("fa fa-share-alt", function() {
             gi(listview)
         });
     	vi();
 
     },
+    before_render: function(listview) {
+        vi();
+    },
     get_indicator: function(doc) {
         
-        // vi();
         if (doc.status == "Fixed") {
             return [__("Fixed"), "orange"];
         } else if (doc.status == "Verified") {
