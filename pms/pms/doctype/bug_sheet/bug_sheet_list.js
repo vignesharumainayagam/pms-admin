@@ -52,7 +52,7 @@ function gi(listview) {
 }
 
 
-function vi() {
+function vi(cur_list) {
         var zTreeObj;
         function myOnClick(event, treeId, treeNode) {
             console.log(treeNode)
@@ -172,15 +172,15 @@ frappe.listview_settings['Bug Sheet'] = {
         listview.page.add_action_icon("fa fa-share-alt", function() {
             gi(listview)
         });
-    	vi();
+    	vi(cur_list);
 
     },
     refresh: function (listview) {
         // body...
-        vi();
+        vi(cur_list);
     },
     before_render: function(listview) {
-        vi();
+        vi(cur_list);
     },
     get_indicator: function(doc) {
         
