@@ -66,20 +66,17 @@ function vi(listview) {
                     $('[data-fieldname="project"]').val(treeNode.idname);
                     $('[data-fieldname="module"]').val(null);
                     $('[data-fieldname="screen"]').val(null);
-                    listview.refresh();
                     cur_list.refresh();
                     break;
                 case 'module':
                     $('[data-fieldname="project"]').val(treeNode.getParentNode().idname);
                     $('[data-fieldname="module"]').val(treeNode.idname);
-                    listview.refresh();
                     cur_list.refresh();
                     break;
                 case 'screen':
                     $('[data-fieldname="project"]').val(treeNode.getParentNode().getParentNode().idname);
                     $('[data-fieldname="module"]').val(treeNode.getParentNode().idname);
                     $('[data-fieldname="screen"]').val(treeNode.idname);
-                    listview.refresh();
                     cur_list.refresh();
                     break;
                 case 'bug':
