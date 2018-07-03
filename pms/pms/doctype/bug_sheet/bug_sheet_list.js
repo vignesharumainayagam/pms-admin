@@ -55,7 +55,7 @@ function gi(listview) {
 function vi() {
         var zTreeObj;
         function myOnClick(event, treeId, treeNode) {
-            console.log(listview.refresh)
+            
            var day = '';
                     $('[data-fieldname="project"]').val(null);
                     $('[data-fieldname="module"]').val(null);
@@ -168,7 +168,7 @@ frappe.listview_settings['Bug Sheet'] = {
         // listview.page.fields_dict.screen.get_query = function(doc) {
         //     return { filters: { project: listview.page.fields_dict.project.value, module: listview.page.fields_dict.module.value } }
         // }
-
+        console.log(listview.refresh)
         listview.page.add_action_icon("fa fa-share-alt", function() {
             gi(listview)
         });
