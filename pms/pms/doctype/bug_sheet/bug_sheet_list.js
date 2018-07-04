@@ -53,7 +53,7 @@ function gi(listview) {
 
 
 function vi(listview) {
-        console.log(listview.refresh_field)
+        console.log(listview.refresh())
         var zTreeObj;
         function myOnClick(event, treeId, treeNode) {
             
