@@ -59,13 +59,12 @@ function vi(listview) {
                     $('[data-fieldname="project"]').val(null);
                     $('[data-fieldname="module"]').val(null);
                     $('[data-fieldname="screen"]').val(null);
-
+                console.log(listview)    
                 if(treeNode.type == 'project')
                     {
                      $('[data-fieldname="project"]').val(treeNode.idname);
                      $('[data-fieldname="module"]').val(null);
                      $('[data-fieldname="screen"]').val(null);
-                     listview.refresh();
                     }
                 if(treeNode.type == 'module')
                     {    
