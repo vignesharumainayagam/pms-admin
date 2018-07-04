@@ -61,25 +61,40 @@ function vi(listview) {
                     $('[data-fieldname="screen"]').val(null);
                 if(treeNode.type == 'project')
                     {
-                     $('[data-fieldname="project"]').val(treeNode.idname);
-                     $('[data-fieldname="module"]').val(null);
-                     $('[data-fieldname="screen"]').val(null);
-                     console.log(listview)
-                     listview.refresh(true);
+                     frappe.set_route("List", cur_list.doctype, {
+                            'project': treeNode.idname,
+                            'module': null,
+                            'screen': null
+                     });   
+                     // $('[data-fieldname="project"]').val(treeNode.idname);
+                     // $('[data-fieldname="module"]').val(null);
+                     // $('[data-fieldname="screen"]').val(null);
+                     // console.log(listview)
+                     // listview.refresh(true);
                     }
                 if(treeNode.type == 'module')
                     {    
-                    $('[data-fieldname="project"]').val(treeNode.getParentNode().idname);
-                    $('[data-fieldname="module"]').val(treeNode.idname);
-                    $('[data-fieldname="screen"]').val(null);
-                    listview.refresh(true);
+                     frappe.set_route("List", cur_list.doctype, {
+                            'project': treeNode.getParentNode().idname,
+                            'module': treeNode.idname,
+                            'screen': null
+                     });                          
+                    // $('[data-fieldname="project"]').val(treeNode.getParentNode().idname);
+                    // $('[data-fieldname="module"]').val(treeNode.idname);
+                    // $('[data-fieldname="screen"]').val(null);
+                    // listview.refresh(true);
                     }
                 if(treeNode.type == 'screen')
                     {
-                    $('[data-fieldname="project"]').val(treeNode.getParentNode().getParentNode().idname);
-                    $('[data-fieldname="module"]').val(treeNode.getParentNode().idname);
-                    $('[data-fieldname="screen"]').val(treeNode.idname);
-                    listview.refresh(true);
+                     frappe.set_route("List", cur_list.doctype, {
+                            'project': treeNode.getParentNode().getParentNode().idname,
+                            'module': treeNode.getParentNode().idname,
+                            'screen': treeNode.idname,
+                     });                              
+                    // $('[data-fieldname="project"]').val(treeNode.getParentNode().getParentNode().idname);
+                    // $('[data-fieldname="module"]').val(treeNode.getParentNode().idname);
+                    // $('[data-fieldname="screen"]').val(treeNode.idname);
+                    // listview.refresh(true);
                     }
                 else{
                     return null;
