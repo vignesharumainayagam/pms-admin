@@ -72,14 +72,14 @@ function vi(listview) {
                     $('[data-fieldname="project"]').val(treeNode.getParentNode().idname);
                     $('[data-fieldname="module"]').val(treeNode.idname);
                     $('[data-fieldname="screen"]').val(null);
-                    listview.refresh(false);
+                    listview.refresh(true);
                     }
                 if(treeNode.type == 'screen')
                     {
                     $('[data-fieldname="project"]').val(treeNode.getParentNode().getParentNode().idname);
                     $('[data-fieldname="module"]').val(treeNode.getParentNode().idname);
                     $('[data-fieldname="screen"]').val(treeNode.idname);
-                    listview.refresh(false);
+                    listview.refresh(true);
                     }
                 else{
                     return null;
