@@ -37,3 +37,9 @@ function reject() {
 					}
 				});	
 }
+
+$(document).ready(function(){
+    var a = $('#maindivi').height();
+    $('#sidedive').css('height', a+100);
+});
+

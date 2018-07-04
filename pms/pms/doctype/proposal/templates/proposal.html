@@ -1,89 +1,177 @@
-{% extends "templates/web.html" %}
-{% block head %}
-    {{ super() }}
-    <style type="text/css">
+{% extends "templates/web.html" %} {% block head %} {{ super() }}
+<style type="text/css">
 table {
+    margin-top: 20px;
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
 
-td, th {
+.navbar {
+    display: none;
+}
+
+.page_content {
+    padding-top: 0;
+    padding-bottom: 30px;
+    margin-top: -31px;
+    float: left;
+    width: 100%;
+}
+
+#item_table th{
+    background-color: #444A52;
+    color: #fff;
+}
+#item_table td th{
+    padding: 5px 10px;
+}
+.proposal-right {
+    background: #444A52;
+    padding-left: 35px;
+    padding-right: 35px;
+    color: #fff;
+    position: absolute;
+    right: 0;
+}
+
+footer {
+    display: none;
+}
+
+td,
+th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
 }
 
-.actionbtns{
-  float: right;
+.proposal-right a:not(.btn) {
+    color: #D9D9D9;
 }
-    </style>
-{% endblock %}
-{% block page_content %}
-<div id="page_id" style="display: none;">{{name}}</div>
-<div class="actionbtns">
-  
-  <button onclick="accept()" id="acceptbtn" class="btn btn-primary btn-sm primary-action"><i class="visible-xs octicon octicon-plus"></i><span class="hidden-xs">Accept</span></button>
- 
-  <button onclick="reject()" id="rejectbtn" class="btn btn-primary btn-sm primary-action"><i class="visible-xs octicon octicon-plus"></i><span class="hidden-xs">Reject</span></button>
-  
+
+.proposal-right {
+    background: #444A52;
+    padding-left: 35px;
+    padding-right: 35px;
+    color: #fff;
+}
+
+.mtop30 {
+    margin-top: 30px;
+}
+
+.mtop10 {
+    margin-top: 10px;
+}
+
+.bold,
+b,
+label,
+strong {
+    font-weight: 500;
+}
+
+.mtop15 {
+    margin-top: 15px;
+}
+
+
+#sidedive {
+    border: 1px solid;
+}
+
+
+.page-container {
+    max-width: 100%;
+}
+
+.actionbtns {
+    float: right;
+}
+</style>
+{% endblock %} {% block page_content %}
+<div class="row">
+    <div class="col-md-9" id="maindivi">
+        <div id="page_id" style="display: none;">{{name}}</div>
+        <div class="contentsinform">
+            {% for i in contents %}
+            <div style="float: left; width: 100%;">
+                <h2>{{i.title}}</h2>
+                <p>{{i.content}}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <span style="text-decoration: underline;background-color: #ffff00;font-size: 14pt;margin-top: 15px;float: left;/ width: 100%; margin-bottom: 15px;"><strong><span style="font-family: tahoma, arial, helvetica, sans-serif; color: #000000; text-decoration: underline;">COST &amp; ESTIMATION</span></strong>
+        </span>
+        <table id="item_table">
+            <tr>
+                <th>Item</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Rate</th>
+            </tr>
+            {% for v in items %}
+            <tr>
+                <td>{{v.item}}</td>
+                <td>{{v.description}}</td>
+                <td>{{symbol}} {{v.price}}</td>
+                <td>{{v.qty}}</td>
+                <td>{{symbol}} {{v.rate}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <table style="float: right; width: 40%; border: none; margin-right: -90px;">
+            <tr>
+                <th style="border: none;">Sub Total</th>
+                <th style="border: none;">{{symbol}} {{sub_total}}</th>
+            </tr>
+            <tr>
+                <th style="border: none;">Tax</th>
+                <th style="border: none;">{{symbol}} {{tax}}</th>
+            </tr>
+            <tr>
+                <th style="border: none;">Grand Total</th>
+                <th style="border: none;">{{symbol}} {{grand_total}}</th>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-3 proposal-right" id="sidedive">
+        <div class="row proposal-right-content">
+            <div class="col-md-12 mtop30">
+                <a href="http://crm.tridotstech.com/"><img src="http://crm.tridotstech.com/uploads/company/logo.png"></a>
+                <div class="row mtop10">
+                    <div class="col-md-12">
+                        <address>
+                            <span class="bold">Tridots Tech Private Limited</span>
+                            <br> 100, Lake View Estate, Kundrathur Road, Porur
+                            <br> Chennai, India 600116
+                            <br>
+                            <a href="tel:9840835346">9840835346</a>
+                        </address>
+                        <hr>
+                        <address class="no-margin">
+                            <span class="bold">To:</span>
+                            <br> {{client_name}}
+                            <br>
+                            <br><a href="mailto:{{to}}">{{to}}</a>
+                            <br><a href="tel:{{client_contact_no}}">{{client_contact_no}}</a> </address>
+                    </div>
+                </div>
+                <h4 class="bold">Total: {{symbol}} {{grand_total}}</h4>
+            </div>
+            <div class="col-md-8 mtop15">
+                <button type="submit" onclick="accept()" data-loading-text="Please wait..." autocomplete="off" class="btn btn-success btn-block">Accept</button>
+                <button type="submit" onclick="reject()" data-loading-text="Please wait..." autocomplete="off" class="btn btn-danger btn-block mtop10">Decline</button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
 </div>
-
-<div class="contentsinform">
-	{% for i in contents %}
-	
-	<div style="float: left; width: 100%;">
-	<h2>{{i.title}}</h2>
-	<br>
-	<p>{{i.content}}</p>
-	</div>	
-
-	{% endfor %}
-
-</div>
-
-<table>
-  <tr>
-    <th>Item</th>
-    <th>Description</th>
-    <th>Price</th>
-    <th>Qty</th>
-    <th>Rate</th>
-  </tr>
-
-  {% for v in items %}
-  <tr>
-    <td>{{v.item}}</td>
-    <td>{{v.description}}</td>
-    <td>{{v.price}}</td>
-    <td>{{v.qty}}</td>
-    <td>{{v.rate}}</td>
-  </tr>
-  {% endfor %}	
-</table> 	
-
-<table style="float: right; width: 40%; border: none; margin-right: -90px;">
-  <tr>
-    <th style="border: none;">Sub Total</th>
-    <th style="border: none;">{{sub_total}}</th>    
-  </tr>
-
-   <tr>
-    <th style="border: none;">Tax</th>
-    <th style="border: none;">{{tax}}</th>    
-  </tr>
-  
-   <tr>
-    <th style="border: none;">Grand Total</th>
-    <th style="border: none;">{{grand_total}}</th>    
-  </tr>	
-</table> 	
-
-
+{% endblock %} {% block script %}
+<script>
+{% include "templates/includes/proposal.js" %}
+</script>
 {% endblock %}
-
-
-{% block script %}
-	<script>{% include "templates/includes/proposal.js" %}</script>
-{% endblock %}
-
