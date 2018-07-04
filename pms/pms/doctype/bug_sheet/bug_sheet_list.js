@@ -56,34 +56,31 @@ function vi(listview) {
         var zTreeObj;
         function myOnClick(event, treeId, treeNode) {
             
-           var day = '';
                     $('[data-fieldname="project"]').val(null);
                     $('[data-fieldname="module"]').val(null);
                     $('[data-fieldname="screen"]').val(null);
-           switch (treeNode.type) {
 
-                case 'project':
-                    $('[data-fieldname="project"]').val(treeNode.idname);
-                    $('[data-fieldname="module"]').val(null);
-                    $('[data-fieldname="screen"]').val(null);
-                    listview.refresh();
-                    break;
-                case 'module':
+                if(treeNode.type == 'project')
+                    {
+                     $('[data-fieldname="project"]').val(treeNode.idname);
+                     $('[data-fieldname="module"]').val(null);
+                     $('[data-fieldname="screen"]').val(null);
+                    }
+                if(treeNode.type == 'module')
+                    {    
                     $('[data-fieldname="project"]').val(treeNode.getParentNode().idname);
                     $('[data-fieldname="module"]').val(treeNode.idname);
-                    listview.refresh();
-                    break;
-                case 'screen':
+                    $('[data-fieldname="screen"]').val(null);
+                    }
+                if(treeNode.type == 'screen')
+                    {
                     $('[data-fieldname="project"]').val(treeNode.getParentNode().getParentNode().idname);
                     $('[data-fieldname="module"]').val(treeNode.getParentNode().idname);
                     $('[data-fieldname="screen"]').val(treeNode.idname);
-                    listview.refresh();
-                    break;
-                case 'bug':
-                    frappe.set_route("Form", "Bug Sheet", treeNode.idname);
-                    break;
-            }
-            listview.refresh();
+                    }
+                else{
+                    return null;
+                }
         };
         var setting = {
             callback: {
