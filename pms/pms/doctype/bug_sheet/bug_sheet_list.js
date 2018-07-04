@@ -56,7 +56,7 @@ function vi(listview) {
         console.log(listview.refresh)
         var zTreeObj;
         function myOnClick(event, treeId, treeNode, listview) {
-            
+            console.log(listview)
            var day = '';
                     $('[data-fieldname="project"]').val(null);
                     $('[data-fieldname="module"]').val(null);
@@ -67,18 +67,15 @@ function vi(listview) {
                     $('[data-fieldname="project"]').val(treeNode.idname);
                     $('[data-fieldname="module"]').val(null);
                     $('[data-fieldname="screen"]').val(null);
-                    listview.refresh(dirty);
                     break;
                 case 'module':
                     $('[data-fieldname="project"]').val(treeNode.getParentNode().idname);
                     $('[data-fieldname="module"]').val(treeNode.idname);
-                    cur_list.refresh();
                     break;
                 case 'screen':
                     $('[data-fieldname="project"]').val(treeNode.getParentNode().getParentNode().idname);
                     $('[data-fieldname="module"]').val(treeNode.getParentNode().idname);
                     $('[data-fieldname="screen"]').val(treeNode.idname);
-                    cur_list.refresh();
                     break;
                 case 'bug':
                     frappe.set_route("Form", "Bug Sheet", treeNode.idname);
