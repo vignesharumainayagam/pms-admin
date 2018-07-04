@@ -65,6 +65,7 @@ function vi(listview) {
                      $('[data-fieldname="project"]').val(treeNode.idname);
                      $('[data-fieldname="module"]').val(null);
                      $('[data-fieldname="screen"]').val(null);
+                     listview.page.refresh();
                     }
                 if(treeNode.type == 'module')
                     {    
