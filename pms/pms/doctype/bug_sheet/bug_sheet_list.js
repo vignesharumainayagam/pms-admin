@@ -53,9 +53,8 @@ function gi(listview) {
 
 
 function vi(listview) {
-        console.log(listview.refresh)
         var zTreeObj;
-        function myOnClick(event, treeId, treeNode, listview) {
+        function myOnClick(event, treeId, treeNode) {
             console.log(listview)
            var day = '';
                     $('[data-fieldname="project"]').val(null);
