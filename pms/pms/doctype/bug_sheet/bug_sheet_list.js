@@ -65,7 +65,7 @@ function vi(listview) {
                      $('[data-fieldname="module"]').val(null);
                      $('[data-fieldname="screen"]').val(null);
                      console.log(listview)
-                     listview.refresh(false);
+                     listview.refresh(true);
                     }
                 if(treeNode.type == 'module')
                     {    
