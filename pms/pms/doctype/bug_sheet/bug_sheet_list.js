@@ -71,16 +71,19 @@ function vi(listview) {
                 case 'module':
                     $('[data-fieldname="project"]').val(treeNode.getParentNode().idname);
                     $('[data-fieldname="module"]').val(treeNode.idname);
+                    listview.refresh();
                     break;
                 case 'screen':
                     $('[data-fieldname="project"]').val(treeNode.getParentNode().getParentNode().idname);
                     $('[data-fieldname="module"]').val(treeNode.getParentNode().idname);
                     $('[data-fieldname="screen"]').val(treeNode.idname);
+                    listview.refresh();
                     break;
                 case 'bug':
                     frappe.set_route("Form", "Bug Sheet", treeNode.idname);
                     break;
             }
+            listview.refresh();
         };
         var setting = {
             callback: {
