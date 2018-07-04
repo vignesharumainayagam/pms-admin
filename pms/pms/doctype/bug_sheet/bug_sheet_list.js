@@ -65,21 +65,21 @@ function vi(listview) {
                      $('[data-fieldname="project"]').val(treeNode.idname);
                      $('[data-fieldname="module"]').val(null);
                      $('[data-fieldname="screen"]').val(null);
-                     temp1.refresh(false);
+                     listview.refresh(false);
                     }
                 if(treeNode.type == 'module')
                     {    
                     $('[data-fieldname="project"]').val(treeNode.getParentNode().idname);
                     $('[data-fieldname="module"]').val(treeNode.idname);
                     $('[data-fieldname="screen"]').val(null);
-                    temp1.refresh(false);
+                    listview.refresh(false);
                     }
                 if(treeNode.type == 'screen')
                     {
                     $('[data-fieldname="project"]').val(treeNode.getParentNode().getParentNode().idname);
                     $('[data-fieldname="module"]').val(treeNode.getParentNode().idname);
                     $('[data-fieldname="screen"]').val(treeNode.idname);
-                    temp1.refresh(false);
+                    listview.refresh(false);
                     }
                 else{
                     return null;
