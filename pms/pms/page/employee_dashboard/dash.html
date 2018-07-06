@@ -1,36 +1,27 @@
 <style type="text/css">
-.listdiv {
-    border: 1px solid grey;
-    min-height: 7in;
+.tab-content{
+    margin-right: 10px;
+}    
+.nav-tabs{
+    text-align: center;
 }
-
-.maindiv {
-    border: 1px solid grey;
-    min-height: 7in;
+.mg{
+    margin-right: 5px;
 }
-
+.mo{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.title-text{
+    font-size: 15px;
+}
 </style>
 <div>
     <div class="row grt">
-        <div class="col-md-12 maindiv">
-			<ul class="nav nav-tabs row">
-			    <li class="active col-md-4"><a data-toggle="tab" href="#info">Info</a></li>
-			    <li class="col-md-4"><a data-toggle="tab" href="#tasks">Tasks</a></li>
-			    <li class="col-md-4"><a data-toggle="tab" href="#bugs">Bugs</a></li>
-			</ul>	
-            <div class="tab-content">
-                <div id="info" class="tab-pane fade in active">
-                    <h3>HOME</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-                <div id="tasks" class="tab-pane fade">
-                    <h3>Menu 1</h3>
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                </div>
-                <div id="bugs" class="tab-pane fade">
-                    <h3>Menu 1</h3>
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                </div>
+        <div class="col-md-12 maindiv">	
+            <div class="tab-content" style="text-align: center; text-transform: uppercase;">
+                    <h3>WELCOME {{content}}</h3>
+                    <p>Please Select Any Project, Module Or Screen To Proceed</p>                
             </div>
         </div>
     </div>

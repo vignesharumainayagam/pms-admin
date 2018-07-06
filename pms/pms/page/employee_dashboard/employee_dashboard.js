@@ -30,7 +30,7 @@ $('#filterid').click(function() {
 
 	$(".filter_list").html('<ul id="treeDemo" class="ztree"></ul>');
 	$('.layout-main').html(frappe.render_template("dash", {
-						content: "Vicky"
+						content: frappe.session.user_fullname
 					})
 	);
 
@@ -127,12 +127,8 @@ function project_click(treeNode) {
         },
         callback: function(r) {
             console.log(r.message);
+            $(".title-text").html(treeNode.name);
             $('.maindiv').html(frappe.render_template("project_dashboard_tab", {content: r.message}));
-            $(document).ready(function() {
-                $("#one").change(function() {
-                   console.log($(this).val())
-                });
-            });
         }
     });
 }
@@ -146,6 +142,8 @@ function module_click(treeNode) {
         },
         callback: function(r) {
             console.log(r.message);
+            $(".title-text").html(treeNode.getParentNode().name+
+                '<i class="fa fa-chevron-right mo" aria-hidden="true"></i>'+treeNode.name);
             $('.maindiv').html(frappe.render_template("module_detail_tab", {content: r.message}));
 
         }
@@ -162,6 +160,9 @@ function screen_click(treeNode) {
 		},
 		callback: function(r) {
 			console.log(r.message);
+            $(".title-text").html(treeNode.getParentNode().getParentNode().name+
+                '<i class="fa fa-chevron-right mo" aria-hidden="true"></i>'+treeNode.getParentNode().name+
+                '<i class="fa fa-chevron-right mo" aria-hidden="true"></i>'+treeNode.name);
 			$('.maindiv').html(frappe.render_template("screen_detail_tab", {content: r.message}));
 
 		}

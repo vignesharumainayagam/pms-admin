@@ -1,107 +1,167 @@
+
+
 <ul class="nav nav-tabs row">
-    <li class="active col-md-4"><a data-toggle="tab" href="#info">Info</a></li>
-    <li class="col-md-4"><a data-toggle="tab" href="#tasks">Tasks</a></li>
-    <li class="col-md-4"><a data-toggle="tab" href="#bugs">Bugs</a></li>
+    <li class="active col-md-4"><a data-toggle="tab" href="#info">
+        <i class="fa fa-info-circle fa-lg mg" aria-hidden="true"></i>
+    Info</a></li>
+    <li class="col-md-4"><a data-toggle="tab" href="#tasks">
+        <i class="fa fa-tasks fa-lg mg" aria-hidden="true"></i>
+    Tasks</a></li>
+    <li class="col-md-4"><a data-toggle="tab" href="#bugs">
+        <i class="fa fa-exclamation-triangle fa-lg mg" aria-hidden="true"></i>
+    Bugs</a></li>
 </ul>
 <div class="tab-content">
     <div id="info" class="tab-pane fade in active">
         <div class="row">
-            <div class="col-md-4">
-                <h3>Screen Name</h3>
-                <p>{{content.data.screen_name}}</p>
+            <div class="col-md-12">
+               <table class="table table-bordered">
+                    <thead style="background-color: #dedede;">
+                        <tr>
+                            <th>Project</th>
+                            <th>Module</th>
+                            <th>Screen Name</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{content.data.project}}</td>
+                            <td>{{content.data.module}}</td>                            
+                            <td>{{content.data.screen_name}}</td>
+                            <td>{{content.data.status}}</td>
+                        </tr>
+                    </tbody>
+                </table>                  
             </div>
-            <div class="col-md-4">
-                <h3>Status</h3>
-                <p>{{content.data.status}}</p>
-            </div>
-            <div class="col-md-4">
-                <h3>Task</h3>
-                <p>{{content.data.task}}</p>
-            </div>
-        </div>
+        </div>     
         <div class="row">
-            <div class="col-md-6">
-                <h3>Project</h3>
-                <p>{{content.data.project}}</p>
-            </div>
-            <div class="col-md-6">
-                <h3>Module</h3>
-                <p>{{content.data.module}}</p>
-            </div>
-        </div>
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead style="background-color: #dedede;">
+                        <tr>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                            {% if(content.data.screen_description) { %}    
+                            {{content.data.screen_description}}
+                            {% } %}
+                            {% if(content.data.screen_description == null) { %}     
+                            <h4>No Description Found</h4>
+                            {% } %} 
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>                 
+            </div>              
+        </div>        
         <div class="row">
-            <div class="col-md-6">
-                <h3>Description</h3>
-                <p>{{content.data.screen_description}}</p>
+            <div class="col-md-12">
+                <h3>Functionalities</h3>
+                <table class="table table-bordered">
+                    <thead style="background-color: #dedede;">
+                        <tr>
+                            <th>Idx</th>
+                            <th>Subject</th>
+                            <th>status</th>
+                            <th>Linked Task</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for(var y=0; y < content.functionality.length; y++) { %} <tr>
+                            <td>{{y+1}}</td>
+                            <td>{{content.functionality[y].subject}}</td>
+                            <td>{{content.functionality[y].status}}</td>
+                            <td>{{content.functionality[y].task}}</td>
+                            </tr>
+                            {% } %}
+                    </tbody>
+                </table>                
             </div>
         </div>
-        <h3>Functionalities</h3>
-        <table class="table table-bordered">
-            <thead style="background-color: #dedede;">
-                <tr>
-                	<th>Idx</th>
-                    <th>Subject</th>
-                    <th>status</th>
-                    <th>Linked Task</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for(var y=0; y
-                < content.functionality.length; y++) { %} <tr>
-                    <td>{{y+1}}</td>
-                    <td>{{content.functionality[y].subject}}</td>
-                    <td>{{content.functionality[y].status}}</td>
-                    <td>{{content.functionality[y].task}}</td>
-                    </tr>
-                    {% } %}
-            </tbody>
-        </table>
 
     </div>
     <div id="tasks" class="tab-pane fade">
-        <table class="table table-bordered">
-            <thead style="background-color: #dedede;">
-                <tr>
-                	<th>Idx</th>
-                    <th>Subject</th>
-                    <th>status</th>
-                    <th>priority</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for(var y=0; y
-                < content.task_list.length; y++) { %} <tr>
-                    <td>{{y+1}}</td>
-                    <td>{{content.task_list[y].subject}}</td>
-                    <td>{{content.task_list[y].status}}</td>
-                    <td>{{content.task_list[y].priority}}</td>
-                    </tr>
-                    {% } %}
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead style="background-color: #dedede;">
+                        <tr>
+                            <th>Idx</th>
+                            <th>Subject</th>
+                            <th>status</th>
+                            <th>priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for(var y=0; y
+                        < content.task_list.length; y++) { %} <tr>
+                            <td>{{y+1}}</td>
+                            <td>{{content.task_list[y].subject}}</td>
+                            <td>
+                            <select data-task="{{content.task_list[y].name}}" onchange="taskchange(this)" type="text" autocomplete="off" class="input-with-feedback form-control" maxlength="140" data-fieldtype="Select" data-fieldname="status" placeholder="" data-doctype="Module">
+                                {% for(var z=0; z< content.options.length; z++) { %}
+                                    {% if(content.task_list[y].status == content.options[z]) { %}
+                                        <option value="{{content.options[z]}}" selected>{{content.options[z]}}</option>
+                                    {% } %} 
+                                    {% if(content.task_list[y].status != content.options[z]) { %}
+                                        <option value="{{content.options[z]}}">{{content.options[z]}}</option>
+                                    {% } %}    
+                                {% } %}
+                            </select>
+                            </td>                    
+                            <td>{{content.task_list[y].priority}}</td>
+                            </tr>
+                            {% } %}
+                    </tbody>
+                </table>                
+            </div>
+        </div>
     </div>
     <div id="bugs" class="tab-pane fade">
-        <table class="table table-bordered">
-            <thead style="background-color: #dedede;">
-                <tr>
-                	<th>Idx</th>
-                    <th>Bug Title</th>
-                    <th>status</th>
-                    <th>category</th>
-                    <th>priority</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for(var y=0; y
-                < content.bugs.length; y++) { %} <tr>
-                	<td>{{y+1}}</td>
-                    <td>{{content.bugs[y].bug_title}}</td>
-                    <td>{{content.bugs[y].status}}</td>
-                    <td>{{content.bugs[y].category}}</td>
-                    <td>{{content.bugs[y].priority}}</td>
-                    </tr>
-                    {% } %}
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead style="background-color: #dedede;">
+                        <tr>
+                            <th>Idx</th>
+                            <th>Bug Title</th>
+                            <th>status</th>
+                            <th>category</th>
+                            <th>priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if(content.bugs.length > 0) { %} 
+                            {% for(var y=0; y < content.bugs.length; y++) { %} <tr>
+                            <td>{{y+1}}</td>
+                            <td>{{content.bugs[y].bug_title}}</td>
+                            <td>
+                            <select data-bug="{{content.bugs[y].name}}" onchange="bugchange(this)" id="project_task_select" type="text" autocomplete="off" class="input-with-feedback form-control" maxlength="140" data-fieldtype="Select" data-fieldname="status" placeholder="" data-doctype="Module">
+                                {% for(var z=0; z< content.bug_options.length; z++) { %}
+                                    {% if(content.bugs[y].status == content.bug_options[z]) { %}
+                                        <option value="{{content.bug_options[z]}}" selected>{{content.bug_options[z]}}</option>
+                                    {% } %} 
+                                    {% if(content.bugs[y].status != content.bug_options[z]) { %}
+                                        <option value="{{content.bug_options[z]}}">{{content.bug_options[z]}}</option>
+                                    {% } %}    
+                                {% } %}
+                            </select>
+                            </td>
+                            <td>{{content.bugs[y].category}}</td>
+                            <td>{{content.bugs[y].priority}}</td>
+                            </tr>
+                            {% } %}
+                        {% } %}
+                        {% if(content.bugs.length == 0) { %} 
+                            <tr><td colspan="5" style="text-align: center;"><h4>No Bugs Found</h4></td></tr>
+                        {% } %}    
+                    </tbody>
+                </table>                
+            </div>
+        </div>
     </div>
 </div>

@@ -6,6 +6,8 @@ from frappe.model.document import Document
 from frappe.share import add
 from frappe import _, throw
 
+options = ['Open', 'Working', 'Pending Review', 'Overdue', 'Closed', 'Cancelled']
+bug_options = ['Fixed','Closed','Open','Re-open','Verified',]
 
 @frappe.whitelist()
 def get_data_screen(id, type, module, project):
@@ -69,7 +71,7 @@ def get_data_screen(id, type, module, project):
 						fields=['bug_title','name','category', 'priority', 'status', 'bug_description']
 						)
 		
-	return {"data":data[0], "screenshots":screenshots,
+	return {"data":data[0], "screenshots":screenshots, "options": options, "bug_options": bug_options,
 			"functionality": functionality,"task_list": task_list, "bugs": bugs}
 
 @frappe.whitelist()
@@ -141,7 +143,7 @@ def get_data_module(id, type, project):
 						fields=['bug_title','name','category', 'priority', 'status', 'bug_description']
 						)
 		
-	return {"data":data[0], "screenshots":screenshots,
+	return {"data":data[0], "screenshots":screenshots, "options": options, "bug_options": bug_options,
 			"functionality": functionality,"task_list": task_list, "bugs": bugs}
 
 @frappe.whitelist()
@@ -218,7 +220,8 @@ def get_data_project(id, type):
 						fields=['bug_title','name','category', 'priority', 'status', 'bug_description']
 						)
 		
-	return {"data":data[0], "screenshots":screenshots, "task_list": task_list, "bugs": bugs, "modules":modules, "screens":screens}
+	return {"data":data[0], "screenshots":screenshots, "task_list": task_list,"bug_options": bug_options,
+			"bugs": bugs, "modules":modules, "screens":screens, "options": options}
 
 
 
