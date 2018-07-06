@@ -61,28 +61,28 @@ class Screen(Document):
 			self.db_set("task", parent_task.name)
 		
 		if not self.development_task:
-			dev_task = frappe.get_doc({
+			devo_task = frappe.get_doc({
 				"doctype": "Task",
 				"subject": self.screen_name+"(Development)",
 				"project": self.project,
 				"parent_task": self.task,
 				"is_group": 1
 			})
-			dev_task.insert()
+			devo_task.insert()
 
-		self.db_set("development_task", dev_task.name)
+		self.db_set("development_task", devo_task.name)
 			
 
 		if not self.testing_task:	
-			test_task = frappe.get_doc({
+			testing_task = frappe.get_doc({
 				"doctype": "Task",
 				"subject": self.screen_name+"(Testing)",
 				"project": self.project,
 				"parent_task": self.task,
 				"is_group": 1
 			})
-			test_task.insert()
-			self.db_set("testing_task", test_task.name)
+			testing_task.insert()
+			self.db_set("testing_task", testing_task.name)
 
 		elif self.task:
 			parent_task = frappe.get_doc('Task', self.task)
