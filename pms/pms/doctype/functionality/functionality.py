@@ -4,13 +4,16 @@
 
 from __future__ import unicode_literals
 import frappe
+import json
 from frappe.model.document import Document
+from frappe.share import add
+from frappe import _, throw
 
 class Functionality(Document):
 	pass
 	def before_insert(self):
 		if self.screen and self.module:
-			self.parental_task = frappe.db.get_value('Screen', self.screen, 'task')
+			self.parental_task = frappe.db.get_value('Screen', self.screen, 'development_task')
 		elif self.module and not self.screen:
 			self.parental_task = frappe.db.get_value('Module', self.module, 'task')	
 
@@ -39,7 +42,7 @@ class Functionality(Document):
 
 	def on_update(self):
 		if self.screen and self.module:
-			self.parental_task = frappe.db.get_value('Screen', self.screen, 'task')
+			self.parental_task = frappe.db.get_value('Screen', self.screen, 'development_task')
 		elif self.module and not self.screen:
 			self.parental_task = frappe.db.get_value('Module', self.module, 'task')	
 

@@ -1,0 +1,112 @@
+<ul class="nav nav-tabs row">
+    <li class="active col-md-4"><a data-toggle="tab" href="#info">Info</a></li>
+    <li class="col-md-4"><a data-toggle="tab" href="#tasks">Tasks</a></li>
+    <li class="col-md-4"><a data-toggle="tab" href="#bugs">Bugs</a></li>
+</ul>
+<div class="tab-content">
+    <div id="info" class="tab-pane fade in active">
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Screen Name</h3>
+                <p>{{content.data.project_name}}</p>
+            </div>
+            <div class="col-md-4">
+                <h3>Status</h3>
+                <p>{{content.data.status}}</p>
+            </div>
+            <div class="col-md-4">
+                <h3>Priority</h3>
+                <p>{{content.data.priority}}</p>
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-md-6">
+        <table class="table table-bordered">
+            <thead style="background-color: #dedede;">
+                <tr>
+                    <th>Idx</th>
+                    <th>Module Name</th>
+                    <th>status</th>
+                    <th>Task Linked</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for(var y=0; y< content.modules.length; y++) { %} <tr>
+                    <td>{{y+1}}</td>
+                    <td>{{content.modules[y].module_name}}</td>
+                    <td>{{content.modules[y].status}}</td>
+                    <td>{{content.modules[y].task}}</td>
+                    </tr>
+                    {% } %}
+            </tbody>
+        </table>            
+        </div>
+        <div class="col-md-6">
+        <table class="table table-bordered">
+            <thead style="background-color: #dedede;">
+                <tr>
+                    <th>Idx</th>
+                    <th>Screen Name</th>
+                    <th>status</th>
+                    <th>Task Linked</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for(var y=0; y< content.screens.length; y++) { %} <tr>
+                    <td>{{y+1}}</td>
+                    <td>{{content.screens[y].screen_name}}</td>
+                    <td>{{content.screens[y].status}}</td>
+                    <td>{{content.screens[y].task}}</td>
+                    </tr>
+                    {% } %}
+            </tbody>
+        </table>            
+        </div>            
+        </div>
+    </div>
+    <div id="tasks" class="tab-pane fade">
+        <table class="table table-bordered">
+            <thead style="background-color: #dedede;">
+                <tr>
+                	<th>Idx</th>
+                    <th>Subject</th>
+                    <th>status</th>
+                    <th>priority</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for(var y=0; y< content.task_list.length; y++) { %} <tr>
+                    <td>{{y+1}}</td>
+                    <td>{{content.task_list[y].subject}}</td>
+                    <td>{{content.task_list[y].status}}</td>
+                    <td>{{content.task_list[y].priority}}</td>
+                    </tr>
+                    {% } %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="bugs" class="tab-pane fade">
+        <table class="table table-bordered">
+            <thead style="background-color: #dedede;">
+                <tr>
+                	<th>Idx</th>
+                    <th>Bug Title</th>
+                    <th>status</th>
+                    <th>category</th>
+                    <th>priority</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for(var y=0; y< content.bugs.length; y++) { %} <tr>
+                	<td>{{y+1}}</td>
+                    <td>{{content.bugs[y].bug_title}}</td>
+                    <td>{{content.bugs[y].status}}</td>
+                    <td>{{content.bugs[y].category}}</td>
+                    <td>{{content.bugs[y].priority}}</td>
+                    </tr>
+                    {% } %}
+            </tbody>
+        </table>
+    </div>
+</div>

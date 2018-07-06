@@ -107,7 +107,7 @@
    "search_index": 0, 
    "set_only_once": 0, 
    "translatable": 0, 
-   "unique": 1
+   "unique": 0
   }, 
   {
    "allow_bulk_edit": 0, 
@@ -439,7 +439,7 @@
  "issingle": 0, 
  "istable": 0, 
  "max_attachments": 0, 
- "modified": "2018-06-25 15:46:50.145467", 
+ "modified": "2018-07-05 19:35:52.745562", 
  "modified_by": "Administrator", 
  "module": "PMS", 
  "name": "Module", 

@@ -61,40 +61,33 @@ function vi(listview) {
                     $('[data-fieldname="screen"]').val(null);
                 if(treeNode.type == 'project')
                     {
-                     frappe.set_route("List", cur_list.doctype, {
-                            'project': treeNode.idname,
-                            'module': null,
-                            'screen': null
-                     });   
-                     // $('[data-fieldname="project"]').val(treeNode.idname);
-                     // $('[data-fieldname="module"]').val(null);
-                     // $('[data-fieldname="screen"]').val(null);
-                     // console.log(listview)
-                     // listview.refresh(true);
+                         
+                         frappe.set_route("List", cur_list.doctype, {
+                                'project': treeNode.idname,
+                                'module': null,
+                                'screen': null
+                         });   
+
                     }
                 if(treeNode.type == 'module')
                     {    
-                     frappe.set_route("List", cur_list.doctype, {
-                            'project': treeNode.getParentNode().idname,
-                            'module': treeNode.idname,
-                            'screen': null
-                     });                          
-                    // $('[data-fieldname="project"]').val(treeNode.getParentNode().idname);
-                    // $('[data-fieldname="module"]').val(treeNode.idname);
-                    // $('[data-fieldname="screen"]').val(null);
-                    // listview.refresh(true);
+                         
+                         frappe.set_route("List", cur_list.doctype, {
+                                'project': treeNode.getParentNode().idname,
+                                'module': treeNode.idname,
+                                'screen': null
+                         });                          
+
                     }
                 if(treeNode.type == 'screen')
                     {
-                     frappe.set_route("List", cur_list.doctype, {
-                            'project': treeNode.getParentNode().getParentNode().idname,
-                            'module': treeNode.getParentNode().idname,
-                            'screen': treeNode.idname,
-                     });                              
-                    // $('[data-fieldname="project"]').val(treeNode.getParentNode().getParentNode().idname);
-                    // $('[data-fieldname="module"]').val(treeNode.getParentNode().idname);
-                    // $('[data-fieldname="screen"]').val(treeNode.idname);
-                    // listview.refresh(true);
+                         
+                         frappe.set_route("List", cur_list.doctype, {
+                                'project': treeNode.getParentNode().getParentNode().idname,
+                                'module': treeNode.getParentNode().idname,
+                                'screen': treeNode.idname,
+                         });                              
+
                     }
                 else{
                     return null;
@@ -168,11 +161,11 @@ function vi(listview) {
 
         var zNodes = go(a)
 
-        $(document).ready(function() {
+        // $(document).ready(function() {
             
-            $(".filter_list").html('<ul id="treeDemo" class="ztree"></ul>');
-            zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-        });
+        //     $(".filter_list").html('<ul id="treeDemo" class="ztree"></ul>');
+        //     zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        // });
 
 }
 frappe.listview_settings['Bug Sheet'] = {
@@ -188,15 +181,14 @@ frappe.listview_settings['Bug Sheet'] = {
         listview.page.add_action_icon("fa fa-share-alt", function() {
             gi(listview)
         });
-    	vi(listview);
+    	// vi(listview);
 
     },
     refresh: function (listview) {
-        // body...
-        vi(listview);
+        // vi(listview);
     },
     before_render: function(listview) {
-        vi(listview);
+        // vi(listview);
     },
     get_indicator: function(doc) {
         

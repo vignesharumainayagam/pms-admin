@@ -4,10 +4,14 @@
 
 from __future__ import unicode_literals
 import frappe
+import json
 from frappe.model.document import Document
+from frappe.share import add
+from frappe import _, throw
 
 class Module(Document):
 	pass
+
 	def before_insert(self):
 		parent_task = frappe.get_doc({
 			"doctype": "Task",
@@ -38,6 +42,7 @@ class Module(Document):
 			parent_task.project = self.project
 			parent_task.is_group = 1	
 			parent_task.save()		
+
 
 
 
