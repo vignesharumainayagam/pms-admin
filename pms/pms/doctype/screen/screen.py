@@ -69,8 +69,7 @@ class Screen(Document):
 				"is_group": 1
 			})
 			devo_task.insert()
-
-		self.db_set("development_task", devo_task.name)
+			self.db_set("development_task", devo_task.name)
 			
 
 		if not self.testing_task:	
