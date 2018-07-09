@@ -64,11 +64,16 @@ def get_data_screen(id, type, module, project):
 		task_list = []
 
 		for y in tasks:
-			task_list.append({"name":y, "subject":frappe.db.get_value("Task", y, "subject"), "status":frappe.db.get_value("Task", y, "status")})
+			task_list.append({"name":y, "description":frappe.db.get_value("Task", y, "description"),
+							"exp_start_date":frappe.db.get_value("Task", y, "exp_start_date"),
+							"exp_end_date":frappe.db.get_value("Task", y, "exp_end_date"),
+							 "priority":frappe.db.get_value("Task", y, "priority"),
+							 "subject":frappe.db.get_value("Task", y, "subject"), "status":frappe.db.get_value("Task", y, "status"),
+							  "created_date":frappe.db.get_value("Task", y, "creation")})
 
 		bugs = frappe.db.get_list('Bug Sheet',
 						filters={"project": project, "module": module, "screen": id},
-						fields=['bug_title','name','category', 'priority', 'status', 'bug_description']
+						fields=['bug_title','name','category', 'priority', 'status', 'bug_description', 'creation']
 						)
 		
 	return {"data":data[0], "screenshots":screenshots, "options": options, "bug_options": bug_options,
@@ -136,15 +141,20 @@ def get_data_module(id, type, project):
 		task_list = []
 
 		for y in tasks:
-			task_list.append({"name":y, "subject":frappe.db.get_value("Task", y, "subject"), "status":frappe.db.get_value("Task", y, "status")})
+			task_list.append({"name":y, "description":frappe.db.get_value("Task", y, "description"),
+							"exp_start_date":frappe.db.get_value("Task", y, "exp_start_date"),
+							"exp_end_date":frappe.db.get_value("Task", y, "exp_end_date"),
+							 "priority":frappe.db.get_value("Task", y, "priority"),
+							 "subject":frappe.db.get_value("Task", y, "subject"), "status":frappe.db.get_value("Task", y, "status"),
+							  "created_date":frappe.db.get_value("Task", y, "creation")})
 
 		bugs = frappe.db.get_list('Bug Sheet',
 						filters={"project": project, "module": id},
-						fields=['bug_title','name','category', 'priority', 'status', 'bug_description']
+						fields=['bug_title','name','category', 'priority', 'status', 'bug_description', 'creation']
 						)
 		
 	return {"data":data[0], "screenshots":screenshots, "options": options, "bug_options": bug_options,
-			"functionality": functionality,"task_list": task_list, "bugs": bugs}
+			"functionality": functionality,"task_list": task_list, "bugs": bugs, "screens": screens}
 
 @frappe.whitelist()
 def get_data_project(id, type):
@@ -213,11 +223,16 @@ def get_data_project(id, type):
 		task_list = []
 
 		for y in tasks:
-			task_list.append({"name":y, "subject":frappe.db.get_value("Task", y, "subject"), "status":frappe.db.get_value("Task", y, "status")})
+			task_list.append({"name":y, "description":frappe.db.get_value("Task", y, "description"),
+							"exp_start_date":frappe.db.get_value("Task", y, "exp_start_date"),
+							"exp_end_date":frappe.db.get_value("Task", y, "exp_end_date"),
+							 "priority":frappe.db.get_value("Task", y, "priority"),
+							 "subject":frappe.db.get_value("Task", y, "subject"), "status":frappe.db.get_value("Task", y, "status"),
+							  "created_date":frappe.db.get_value("Task", y, "creation")})
 
 		bugs = frappe.db.get_list('Bug Sheet',
 						filters={"project": id},
-						fields=['bug_title','name','category', 'priority', 'status', 'bug_description']
+						fields=['bug_title','name','category', 'priority', 'status', 'bug_description', 'creation']
 						)
 		
 	return {"data":data[0], "screenshots":screenshots, "task_list": task_list,"bug_options": bug_options,
