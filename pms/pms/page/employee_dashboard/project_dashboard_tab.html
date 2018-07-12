@@ -15,6 +15,9 @@
         border: 1px solid #d2d8de;
         padding: 4px;
     }  
+    #page-employee-dashboard .nav-tabs>li {
+        padding: 0px;
+    }
     #page-employee-dashboard .title-text {
         font-size: 12px;
     }
@@ -206,18 +209,18 @@
                                     </div>
                                     <div class="col-md-6">
                                         <h3>Priority</h3>
-                                        <p class="pri">{{content.task_list[y].priority}}</p>
+                                        <p>{{content.task_list[y].priority}}</p>
                                     </div>
                                     {% if(content.task_list[y].exp_start_date) { %}
                                     <div class="col-md-6">
                                         <h3>Start Date</h3>
-                                        <p class="pri">{{content.task_list[y].exp_start_date}}</p>
+                                        <p>{{content.task_list[y].exp_start_date}}</p>
                                     </div>
                                     {% } %}
                                     {% if(content.task_list[y].exp_end_date) { %}
                                     <div class="col-md-6">
                                         <h3>End Date</h3>
-                                        <p class="pri">{{content.task_list[y].exp_end_date}}</p>
+                                        <p>{{content.task_list[y].exp_end_date}}</p>
                                     </div>
                                     {% } %}
                                     {% if(content.task_list[y].description) { %}
@@ -303,7 +306,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <h3>Priority</h3>
-                                        <p class="pri">{{content.bugs[y].priority}}</p>
+                                        <p>{{content.bugs[y].priority}}</p>
                                     </div>
                                     {% if(content.bugs[y].bug_description) { %}
                                     <div class="col-md-12">

@@ -6,13 +6,23 @@
         margin-top: 5px;
     }    
     .taskside{
-        min-height: 5in;
+    max-height: 500px;
+    overflow-y: auto;
     }
     .bugside{
-        min-height: 5in;
+    max-height: 500px;
+    overflow-y: auto;
     }
+    .taskmain{
+    max-height: 500px;
+    overflow-y: auto;
+    }
+    .bugmain{
+    max-height: 500px;
+    overflow-y: auto;
+    }    
     .pri{
-        border: 1px solid #d2d8de;
+        /*border: 1px solid #d2d8de;*/
         padding: 4px;
     }  
     #page-employee-dashboard .title-text {
@@ -26,6 +36,9 @@
     #page-employee-dashboard .page-content
     {
         margin-top: 80px;
+    }
+    #page-employee-dashboard .nav-tabs>li {
+        padding: 0px;
     }
     #page-employee-dashboard .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
         color: #000;
@@ -71,13 +84,13 @@
 <div class="tab-content maini">
     <div id="info" class="tab-pane fade">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-4">
                 <h4>
                     Project
                 </h4>
                 <p>{{content.data.project}}</p>
             </div>            
-            <div class="col-md-12">
+            <div class="col-md-4">
                 <h4>
                     Module Name
                 </h4>
@@ -98,32 +111,30 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h3>Screens</h3>
-                <table class="table table-bordered">
-                    <thead style="background-color: #dedede;">
-                        <tr>
-                            <th>Idx</th>
-                            <th>Screen Name</th>
-                            <th>status</th>
-                            <th>Task Linked</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                {% if(content.screens.length > 0) { %}
+                    <h3>Screens</h3>
+                    <div style="padding-left: 20px;">
                         {% if(content.screens.length > 0) { %}
-                            {% for(var y=0; y< content.screens.length; y++) { %} 
-                            <tr>
-                                <td>{{y+1}}</td>
-                                <td>{{content.screens[y].screen_name}}</td>
-                                <td>{{content.screens[y].status}}</td>
-                                <td>{{content.screens[y].task}}</td>
-                            </tr>
+                            {% for(var y=0; y< content.screens.length; y++) { %}
+                                <h3>
+                                    <a  data-project_name="{{content.project_name}}" 
+                                        data-module_name="{{content.module_name}}"
+                                        data-screen_name="{{content.screens[y].screen_name}}"
+                                        data-project="{{content.project}}" data-module="{{content.module}}"
+                                        data-name="{{content.screens[y].name}}"
+                                        onclick="get_screen(this)">
+                                        {{content.screens[y].screen_name}}
+                                    </a>
+                                </h3>
+                                <div class="row">  
+                                    <div class="col-md-12">
+                                        <p>{{content.screens[y].screen_description}}</p>
+                                    </div>
+                                </div>
                             {% } %}
-                        {% } %}    
-                        {% if(content.screens.length == 0) { %} 
-                            <tr><td colspan="4" style="text-align: center;"><h4>No Screens Found</h4></td></tr>
-                        {% } %}
-                    </tbody>
-                </table>         
+                        {% } %} 
+                    </div>   
+               {% } %}    
             </div>
         </div>
     </div>
@@ -169,14 +180,17 @@
                         {% } %}    
                     </ul>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8 taskmain">
                     <div class="tab-content">
                         {% for(var y=0; y < content.task_list.length; y++) { %}
                             <div class="tab-pane {% if(y == 0) { %} active {% } %}" 
                             id="{{content.task_list[y].name}}">
                                 <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>{{content.task_list[y].subject}}</h4>
+                                    </div>
                                     <div class="col-md-6">
-                                        <h3>Status</h3>
+                                        <h5>Status</h5>
                                         <select data-task="{{content.task_list[y].name}}" onchange="taskchange(this)" type="text" autocomplete="off" class="input-with-feedback form-control" maxlength="140" data-fieldtype="Select" data-fieldname="status" placeholder="" data-doctype="Module">
                                             {% for(var z=0; z< content.options.length; z++) { %}
                                                 <option value="{{content.options[z]}}" 
@@ -187,24 +201,24 @@
                                         </select>
                                     </div>
                                     <div class="col-md-6">
-                                        <h3>Priority</h3>
+                                        <h5>Priority</h5>
                                         <p class="pri">{{content.task_list[y].priority}}</p>
                                     </div>
                                     {% if(content.task_list[y].exp_start_date) { %}
                                     <div class="col-md-6">
-                                        <h3>Start Date</h3>
+                                        <h5>Start Date</h5>
                                         <p class="pri">{{content.task_list[y].exp_start_date}}</p>
                                     </div>
                                     {% } %}
                                     {% if(content.task_list[y].exp_end_date) { %}
                                     <div class="col-md-6">
-                                        <h3>End Date</h3>
+                                        <h5>End Date</h5>
                                         <p class="pri">{{content.task_list[y].exp_end_date}}</p>
                                     </div>
                                     {% } %}
                                     {% if(content.task_list[y].description) { %}
                                     <div class="col-md-12">
-                                        <h3>Description</h3>
+                                        <h5>Description</h5>
                                         <p>{{content.task_list[y].description}}</p>
                                     </div>
                                     {% } %}
@@ -218,7 +232,7 @@
         {% } %} 
         {% if(content.task_list.length == 0) { %}
             <div style="text-align: center;">
-                <h3>No Tasks Found</h3>
+                <h5>No Tasks Found</h5>
             </div>
         {% } %}
     </div>    
@@ -264,14 +278,17 @@
                         {% } %}    
                     </ul>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8 bugmain">
                     <div class="tab-content">
                         {% for(var y=0; y < content.bugs.length; y++) { %}
                             <div class="tab-pane {% if(y == 0) { %} active {% } %}" 
                             id="{{content.bugs[y].name}}">
                                 <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>{{content.bugs[y].bug_title}}</h4>
+                                    </div>
                                     <div class="col-md-6">
-                                        <h3>Status</h3>
+                                        <h5>Status</h5>
                                         <select data-bug="{{content.bugs[y].name}}" onchange="bugchange(this)" id="project_task_select" type="text" autocomplete="off" class="input-with-feedback form-control" maxlength="140" data-fieldtype="Select" data-fieldname="status" placeholder="" data-doctype="Module">
                                             {% for(var z=0; z< content.bug_options.length; z++) { %}
                                                 {% if(content.bugs[y].status == content.bug_options[z]) { %}
@@ -284,12 +301,12 @@
                                         </select>
                                     </div>
                                     <div class="col-md-6">
-                                        <h3>Priority</h3>
+                                        <h5>Priority</h5>
                                         <p class="pri">{{content.bugs[y].priority}}</p>
                                     </div>
                                     {% if(content.bugs[y].bug_description) { %}
                                     <div class="col-md-12">
-                                        <h3>Description</h3>
+                                        <h5>Description</h5>
                                         <p>{{content.bugs[y].bug_description}}</p>
                                     </div>
                                     {% } %}
@@ -302,7 +319,7 @@
         {% } %}
         {% if(content.bugs.length == 0) { %}
             <div style="text-align: center;">
-                <h3>No Bugs Found</h3>
+                <h5>No Bugs Found</h5>
             </div>
         {% } %}
     </div>    

@@ -8,42 +8,6 @@ from frappe.model.document import Document
 
 class Screen(Document):
 	pass
-	def before_insert(self):
-		self.parental_task = frappe.db.get_value('Module', self.module, 'task')
-		task = frappe.get_doc({
-			"doctype": "Task",
-			"subject": self.screen_name,
-			"status": self.status,
-			"project": self.project,
-			"parent_task": self.parental_task,
-			"is_group": 1
-		})
-		task.insert()
-		self.db_set("task", task.name)
-		self.db_set("parent", self.module)		
-
-		self.first_parental_task = self.task
-
-		dev_task = frappe.get_doc({
-			"doctype": "Task",
-			"subject": self.screen_name+"(Development)",
-			"project": self.project,
-			"parent_task": self.first_parental_task,
-			"is_group": 1
-		})
-		dev_task.insert()
-		self.db_set("development_task", dev_task.name)
-
-		test_task = frappe.get_doc({
-			"doctype": "Task",
-			"subject": self.screen_name+"(Testing)",
-			"project": self.project,
-			"parent_task": self.first_parental_task,
-			"is_group": 1
-		})
-		test_task.insert()
-		self.db_set("testing_task", test_task.name)
-
 
 	def on_update(self):
 		self.db_set("parent", self.module)

@@ -46,12 +46,12 @@ def get_data_screen(id, type, module, project):
 
 		tasks = []
 
-		if data[0].task:
-			tasks.append(data[0].task)
-		if data[0].development_task:
-			tasks.append(data[0].development_task)
-		if data[0].testing_task:
-			tasks.append(data[0].testing_task)
+		# if data[0].task:
+		# 	tasks.append(data[0].task)
+		# if data[0].development_task:
+		# 	tasks.append(data[0].development_task)
+		# if data[0].testing_task:
+		# 	tasks.append(data[0].testing_task)
 
 		if functionality_task:			
 			for t in functionality_task:
@@ -84,7 +84,7 @@ def get_data_module(id, type, project):
 	if type == "module":
 		data = frappe.db.get_list("Module",
 				filters={"name": id},
-				fields=['module_name', 'project', 'status', 'task', 'module_description'])
+				fields=['module_name', 'project', 'status', 'task', 'module_description', 'name'])
 
 		screenshots = frappe.db.get_list("File", 
 						fields=['file_url'],
@@ -98,7 +98,7 @@ def get_data_module(id, type, project):
 
 		screens = frappe.db.get_list("Screen",
 				filters={"project": project, "module": id},
-				fields=['screen_name', 'project', 'module', 'status', 'task', 'screen_description', 'development_task', 'testing_task'])
+				fields=['name', 'screen_name', 'project', 'module', 'status', 'task', 'screen_description', 'development_task', 'testing_task'])
 	
 
 		functionality_names = []
@@ -122,13 +122,13 @@ def get_data_module(id, type, project):
 			checkpoints_tasks.append(y.task)
 
 		tasks = []
-		if screens:
-			for t in screens:
-				tasks.append(t.task)
-				tasks.append(t.development_task)
-				tasks.append(t.testing_task)
+		# if screens:
+		# 	for t in screens:
+		# 		tasks.append(t.task)
+		# 		tasks.append(t.development_task)
+		# 		tasks.append(t.testing_task)
 				
-		tasks.append(data[0].task)
+		# tasks.append(data[0].task)
 
 		if functionality_task:			
 			for t in functionality_task:
@@ -139,7 +139,11 @@ def get_data_module(id, type, project):
 
 		
 		task_list = []
-
+		
+		project_name = frappe.db.get_value("Project", data[0].project, "project_name")
+		
+		module_name = frappe.db.get_value("Module", data[0].name, "module_name")
+		
 		for y in tasks:
 			task_list.append({"name":y, "description":frappe.db.get_value("Task", y, "description"),
 							"exp_start_date":frappe.db.get_value("Task", y, "exp_start_date"),
@@ -153,7 +157,8 @@ def get_data_module(id, type, project):
 						fields=['bug_title','name','category', 'priority', 'status', 'bug_description', 'creation']
 						)
 		
-	return {"data":data[0], "screenshots":screenshots, "options": options, "bug_options": bug_options,
+	return {"project": project, "module": id, "project_name": project_name, "module_name": module_name,
+			"data":data[0], "screenshots":screenshots, "options": options, "bug_options": bug_options,
 			"functionality": functionality,"task_list": task_list, "bugs": bugs, "screens": screens}
 
 @frappe.whitelist()
