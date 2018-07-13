@@ -12,36 +12,36 @@ from frappe import _, throw
 class Module(Document):
 	pass
 
-	def before_insert(self):
-		parent_task = frappe.get_doc({
-			"doctype": "Task",
-			"subject": self.module_name,
-			"status": self.status,
-			"project": self.project,
-			"is_group": 1
-		})
-		parent_task.insert()
-		self.db_set("task", parent_task.name)
+	# def before_insert(self):
+	# 	parent_task = frappe.get_doc({
+	# 		"doctype": "Task",
+	# 		"subject": self.module_name,
+	# 		"status": self.status,
+	# 		"project": self.project,
+	# 		"is_group": 1
+	# 	})
+	# 	parent_task.insert()
+	# 	self.db_set("task", parent_task.name)
 
-	def on_update(self):
-		if not self.task:
-			parent_task = frappe.get_doc({
-				"doctype": "Task",
-				"subject": self.module_name,
-				"status": self.status,
-				"project": self.project,
-				"is_group": 1
-			})
-			parent_task.insert()	
-			self.db_set("task", parent_task.name)
+	# def on_update(self):
+	# 	if not self.task:
+	# 		parent_task = frappe.get_doc({
+	# 			"doctype": "Task",
+	# 			"subject": self.module_name,
+	# 			"status": self.status,
+	# 			"project": self.project,
+	# 			"is_group": 1
+	# 		})
+	# 		parent_task.insert()	
+	# 		self.db_set("task", parent_task.name)
 
-		elif self.task:
-			parent_task = frappe.get_doc('Task', self.task)
-			parent_task.subject = self.module_name
-			parent_task.status = self.status
-			parent_task.project = self.project
-			parent_task.is_group = 1	
-			parent_task.save()		
+	# 	elif self.task:
+	# 		parent_task = frappe.get_doc('Task', self.task)
+	# 		parent_task.subject = self.module_name
+	# 		parent_task.status = self.status
+	# 		parent_task.project = self.project
+	# 		parent_task.is_group = 1	
+	# 		parent_task.save()		
 
 
 

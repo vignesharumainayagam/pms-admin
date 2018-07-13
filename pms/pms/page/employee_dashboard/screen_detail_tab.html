@@ -1,4 +1,7 @@
 <style type="text/css">
+    .nav-tabs > li > a{
+        margin-right: 0px !important;
+    }
     .jo>li{
         height: auto !important;
     }
@@ -6,10 +9,14 @@
         margin-top: 5px;
     }    
     .taskside{
+    border-right: 1px solid #dedede;    
+    min-height: -webkit-fill-available;    
     max-height: 500px;
     overflow-y: auto;
     }
     .bugside{
+    border-right: 1px solid #dedede;    
+    min-height: -webkit-fill-available;    
     max-height: 500px;
     overflow-y: auto;
     }
@@ -118,7 +125,9 @@
                 <div style="padding-left: 20px;">
                     {% if(content.functionality.length > 0) { %}
                         {% for(var y=0; y< content.functionality.length; y++) { %}
-                            <h3>{{content.functionality[y].subject}}</h3>
+                            <span style="font-size: 16px;font-weight: 600;margin-top: 10px;float: left;">
+                                {{content.functionality[y].subject}}
+                            </span>
                             <div class="row">  
                                 <div class="col-md-12">
                                     <p>{{content.functionality[y].description}}</p>

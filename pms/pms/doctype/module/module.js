@@ -2,42 +2,44 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Module', {
-	refresh: function(frm) {
+	after_save: function(frm) {
 
-	}
-});
+if(frm.doc.task == null){
+    frappe.call({
+        method: "frappe.client.insert",
+        args: {
+            doc: {
+                "doctype": "Task",
+                "subject": frm.doc.module_name,
+                "status": frm.doc.status,
+                "project": frm.doc.project,
+                "is_group": 1
 
-frappe.ui.form.on("Module", "onload", function(frm){
+            }
+        },
+        callback: function(r) {
+          console.log(r.message)
+          frappe.call({
+            method: 'frappe.client.set_value',
+            args: {
+            doctype: "Module",
+            name: frm.doc.name,
+            fieldname: "task",
+            value: r.message.name,
+          },
+          freeze: true,
+          callback: function(r) {}
+          });
 
-if(!frm.doc.__islocal)
-{
-cur_frm.save()
-frappe.call({
-method: "pms.pms.doctype.module.module.get_screens",
-args: {
-            project: frm.doc.project,
-            module: frm.doc.name
-                    },
-callback: function (r) {
-console.log(r.message)
+        }
+    });
 
-for(var e=0; e<r.message.length; e++)
-    {
-        frappe.model.add_child(cur_frm.doc, "Module Screen Child", "table_9");  
-        $.each(frm.doc.table_9 || [], function(e, v) {
-        frappe.model.set_value(v.doctype, v.name, "screen_name", r.message[e][0])
-        })
-        frm.refresh_field("table_9");
+
+}
+
+
     }
-
-		}
-
-
-	})
-}
-else {
-	return 0;
-}
 });
+
 
 

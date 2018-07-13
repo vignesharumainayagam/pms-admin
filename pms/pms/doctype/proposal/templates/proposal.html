@@ -94,6 +94,7 @@ strong {
 <div class="row">
     <div class="col-md-9" id="maindivi">
         <div id="page_id" style="display: none;">{{name}}</div>
+        <h1 style="font-weight: 600;">{{title}}</h1>
         <div class="contentsinform">
             {% for i in contents %}
             <div style="float: left; width: 100%;">
@@ -116,9 +117,9 @@ strong {
             <tr>
                 <td>{{v.item}}</td>
                 <td>{{v.description}}</td>
-                <td>{{symbol}} {{v.price}}</td>
+                <td style="text-align: right;">{{symbol}} {{v.price}}</td>
                 <td>{{v.qty}}</td>
-                <td>{{symbol}} {{v.rate}}</td>
+                <td style="text-align: right;">{{symbol}} {{v.rate}}</td>
             </tr>
             {% endfor %}
         </table>
@@ -159,7 +160,7 @@ strong {
                             <br><a href="tel:{{client_contact_no}}">{{client_contact_no}}</a> </address>
                     </div>
                 </div>
-                <h4 class="bold">Total: {{symbol}} {{grand_total}}</h4>
+                <h4 class="bold">Total: {{symbol}} {{grand_total}} </h4>
             </div>
             <div class="col-md-8 mtop15">
                 <button type="submit" onclick="accept()" data-loading-text="Please wait..." autocomplete="off" class="btn btn-success btn-block">Accept</button>
