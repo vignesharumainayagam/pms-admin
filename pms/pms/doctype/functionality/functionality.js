@@ -117,7 +117,7 @@ frappe.ui.form.on("Functionality", "onload", function(frm) {
       return {
           "filters": {
               "project": frm.doc.project,
-              "module": frm.doc.screen
+              "module": frm.doc.module
           }
       };
   });
