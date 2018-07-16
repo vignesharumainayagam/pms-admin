@@ -22,13 +22,46 @@ class Functionality(Document):
 			"status": self.status,
 			"project": self.project,
 			"parent_task": self.parental_task,
+			"description": self.description,
 			"is_group": 1
 		})
 		new_task.insert()
 		self.db_set("task", new_task.name)
 
 	def on_update(self):
-	
+		
+		if not self.task:
+			if self.screen and self.module:
+				self.parental_task = frappe.db.get_value('Screen', self.screen, 'development_task')
+			elif self.module:
+				self.parental_task = frappe.db.get_value('Module', self.module, 'task')	
+
+			new_task = frappe.get_doc({
+				"doctype": "Task",
+				"subject": self.subject,
+				"status": self.status,
+				"project": self.project,
+				"parent_task": self.parental_task,
+				"description": self.description,
+				"is_group": 1
+			})
+			new_task.insert()
+			self.db_set("task", new_task.name)
+
+		elif self.task:	
+			if self.screen and self.module:
+				self.parental_task = frappe.db.get_value('Screen', self.screen, 'development_task')
+			elif self.module:
+				self.parental_task = frappe.db.get_value('Module', self.module, 'task')	
+
+			task = frappe.get_doc('Task', self.task)
+			task.subject = self.subject
+			task.status = self.status
+			task.project = self.project
+			task.parent_task = self.parental_task
+			task.description = self.description
+			task.save()
+
 		for task in self.get('checkpoints'):
 			if not task.task:
 				chidltask = frappe.get_doc({

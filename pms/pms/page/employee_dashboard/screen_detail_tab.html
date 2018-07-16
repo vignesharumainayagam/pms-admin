@@ -6,8 +6,23 @@
         height: auto !important;
     }
     .maini{
-        margin-top: 5px;
-    }    
+        margin-top: 0px;
+        margin-bottom: 50px !important;
+    }  
+    .tab-content .inco {
+        min-height: -webkit-fill-available;
+        max-height: -webkit-fill-available;
+        overflow-y: scroll;
+    }
+    #page-employee-dashboard .tab-content {
+      margin-right: 0px;
+    }
+    .bugmain {
+    max-height: -webkit-fill-available;
+    overflow-y: auto;
+    padding-left: 25px;
+    margin-left: -15px;
+    }  
     .taskside{
     border-right: 1px solid #dedede;    
     min-height: -webkit-fill-available;    
@@ -21,11 +36,11 @@
     overflow-y: auto;
     }
     .taskmain{
-    max-height: 500px;
+    max-height: -webkit-fill-available;;
     overflow-y: auto;
     }
     .bugmain{
-    max-height: 500px;
+    max-height: -webkit-fill-available;;
     overflow-y: auto;
     }
     .pri{
@@ -76,19 +91,19 @@
 </style>
 
 <ul class="nav nav-tabs row">
-    <li class="active col-md-4"><a data-toggle="tab" href="#tasks">
+    <li class="active col-md-4" style="width: 33%;"><a data-toggle="tab" href="#tasks">
         <i class="fa fa-tasks fa-lg mg" aria-hidden="true"></i>
     Tasks</a></li>
-    <li class="col-md-4"><a data-toggle="tab" href="#bugs">
+    <li class="col-md-4" style="width: 33%;"><a data-toggle="tab" href="#bugs">
         <i class="fa fa-exclamation-triangle fa-lg mg" aria-hidden="true"></i>
     Bugs</a></li>
-    <li class="col-md-4"><a data-toggle="tab" href="#info">
+    <li class="col-md-4" style="width: 33%;"><a data-toggle="tab" href="#info">
         <i class="fa fa-info-circle fa-lg mg" aria-hidden="true"></i>
     Info</a></li>
 </ul>
 
 <div class="tab-content maini">
-    <div id="info" class="tab-pane fade">
+    <div id="info" class="tab-pane fade inco">
         <div class="row">
             <div class="col-md-3">
                 <h4>

@@ -4,6 +4,7 @@ frappe.pages['employee-dashboard'].on_page_load = function(wrapper) {
         title: 'Dashboard',
         single_column: true
     });
+    
 }
 
 
@@ -145,6 +146,7 @@ function module_click(treeNode) {
             id: treeNode.idname,
         },
         callback: function(r) {
+            $("html").css("overflow-y", "hidden");
             console.log(r.message);
             $(".title-text").html(treeNode.getParentNode().name+
                 '<i class="fa fa-chevron-right mo" aria-hidden="true"></i>'+treeNode.name);
@@ -164,6 +166,7 @@ function screen_click(treeNode) {
 		},
 		callback: function(r) {
 			console.log(r.message);
+            $("html").css("overflow-y", "hidden");
             $(".title-text").html(treeNode.getParentNode().getParentNode().name+
                 '<i class="fa fa-chevron-right mo" aria-hidden="true"></i>'+treeNode.getParentNode().name+
                 '<i class="fa fa-chevron-right mo" aria-hidden="true"></i>'+treeNode.name);
