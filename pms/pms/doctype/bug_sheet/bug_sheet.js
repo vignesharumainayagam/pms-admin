@@ -258,26 +258,27 @@ frappe.ui.form.on('Bug Sheet', {
 });
 
 
-frappe.ui.form.on("Bug Sheet", "refresh", function(frm) {
+frappe.ui.form.on("Bug Sheet", "onload", function(frm) {
 
-    cur_frm.set_query("module", function() {
-        return {
-            "filters": {
-                "project": frm.doc.project
-            }
-        };
-    });
+  cur_frm.set_query("module", function() {
+      return {
+          "filters": {
+              "project": frm.doc.project
+          }
+      };
+  });
 
-    cur_frm.set_query("screen", function() {
-        return {
-            "filters": {
-                "project": frm.doc.project,
-                "module": frm.doc.screen
-            }
-        };
-    });
-
+  cur_frm.set_query("screen", function() {
+      return {
+          "filters": {
+              "project": frm.doc.project,
+              "module": frm.doc.module
+          }
+      };
+  });
+  
 });
+
 
 frappe.ui.form.on("Bug Sheet", "validate", function(frm) {
     var data = frappe.datetime.now_date();
