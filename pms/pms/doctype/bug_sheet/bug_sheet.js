@@ -258,7 +258,7 @@ frappe.ui.form.on('Bug Sheet', {
 });
 
 
-frappe.ui.form.on("Bug Sheet", "onload", function(frm) {
+frappe.ui.form.on("Bug Sheet", "refresh", function(frm) {
 
     cur_frm.set_query("module", function() {
         return {
