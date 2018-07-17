@@ -40,12 +40,12 @@ def get_data():
 					"type": "doctype",
 					"name": "Test Case"
 				},
-		 	# 	{
-				# 	"type": "page",
-				# 	"name": "pms",
-				# 	"label": _("PMS"),
-				# 	"description": _("PMS")
-				# },
+		 		{
+					"type": "page",
+					"name": "employee-dashboard",
+					"label": _("Dashboard"),
+					"description": _("Dashboard")
+				},
 			]
 		},
 		{
