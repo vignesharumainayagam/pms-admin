@@ -7,21 +7,24 @@ from frappe.share import add
 from frappe import _, throw
 
 options = ['Open', 'Working', 'Pending Review', 'Overdue', 'Closed', 'Cancelled']
-bug_options = ['Fixed','Closed','Open','Re-open','Verified',]
+bug_options = ['Fixed','Closed','Open','Re-open','Verified']
 
 @frappe.whitelist()
 def get_data_screen(id, type, module, project):
 	if type == "screen":
 		data = frappe.db.get_list("Screen",
 				filters={"name": id},
-				fields=['screen_name', 'project', 'module', 'status', 'task', 'screen_description', 'development_task', 'testing_task'])
+				fields=['screen_name', 'project', 'module', 'status', 'task', 'screen_description', 'development_task', 'testing_task'],
+				limit_page_length=200)
 		screenshots = frappe.db.get_list("File", 
 						fields=['file_url'],
-						filters={'attached_to_name': id}
+						filters={'attached_to_name': id},
+						limit_page_length=200
 						)
 		functionality = frappe.db.get_list('Functionality',
 						filters={'screen':id, 'module': module, 'project': project},
-						fields=['subject','status','task','description','name']
+						fields=['subject','status','task','description','name'],
+						limit_page_length=200
 						)
 
 		functionality_names = []
@@ -31,7 +34,8 @@ def get_data_screen(id, type, module, project):
 
 		checkpoints = frappe.db.get_list('Functional Check Points',
 						filters={"parent": ["in", functionality_names]},
-						fields=['subject','status','task']
+						fields=['subject','status','task'],
+						limit_page_length=200
 						)
 		
 		functionality_task = []
@@ -73,7 +77,8 @@ def get_data_screen(id, type, module, project):
 
 		bugs = frappe.db.get_list('Bug Sheet',
 						filters={"project": project, "module": module, "screen": id},
-						fields=['bug_title','name','category', 'priority', 'status', 'bug_description', 'creation']
+						fields=['bug_title','name','category', 'priority', 'status', 'bug_description', 'creation'],
+						limit_page_length=200
 						)
 		
 	return {"data":data[0], "screenshots":screenshots, "options": options, "bug_options": bug_options,
@@ -84,21 +89,25 @@ def get_data_module(id, type, project):
 	if type == "module":
 		data = frappe.db.get_list("Module",
 				filters={"name": id},
-				fields=['module_name', 'project', 'status', 'task', 'module_description', 'name'])
+				fields=['module_name', 'project', 'status', 'task', 'module_description', 'name'],
+				limit_page_length=200)
 
 		screenshots = frappe.db.get_list("File", 
 						fields=['file_url'],
-						filters={'attached_to_name': id}
+						filters={'attached_to_name': id},
+						limit_page_length=200
 						)
 
 		functionality = frappe.db.get_list('Functionality',
 						filters={'module': id, 'project': project},
-						fields=['subject','status','task','description','name']
+						fields=['subject','status','task','description','name'],
+						limit_page_length=200
 						)
 
 		screens = frappe.db.get_list("Screen",
 				filters={"project": project, "module": id},
-				fields=['name', 'screen_name', 'project', 'module', 'status', 'task', 'screen_description', 'development_task', 'testing_task'])
+				fields=['name', 'screen_name', 'project', 'module', 'status', 'task', 'screen_description', 'development_task', 'testing_task'],
+				limit_page_length=200)
 	
 
 		functionality_names = []
@@ -108,7 +117,8 @@ def get_data_module(id, type, project):
 
 		checkpoints = frappe.db.get_list('Functional Check Points',
 						filters={"parent": ["in", functionality_names]},
-						fields=['subject','status','task']
+						fields=['subject','status','task'],
+						limit_page_length=200
 						)
 		
 		functionality_task = []
@@ -154,7 +164,8 @@ def get_data_module(id, type, project):
 
 		bugs = frappe.db.get_list('Bug Sheet',
 						filters={"project": project, "module": id},
-						fields=['bug_title','name','category', 'priority', 'status', 'bug_description', 'creation']
+						fields=['bug_title','name','category', 'priority', 'status', 'bug_description', 'creation'],
+						limit_page_length=200
 						)
 		
 	return {"project": project, "module": id, "project_name": project_name, "module_name": module_name,
@@ -166,24 +177,29 @@ def get_data_project(id, type):
 	if type == "project":
 		data = frappe.db.get_list("Project",
 				filters={"name": id},
-				fields=['status', 'project_name', 'priority'])
+				fields=['status', 'project_name', 'priority'],
+				limit_page_length=200)
 		
 		screenshots = frappe.db.get_list("File", 
 						fields=['file_url'],
-						filters={'attached_to_name': id}
+						filters={'attached_to_name': id},
+						limit_page_length=200
 						)
 
 		modules = frappe.db.get_list("Module",
 				filters={"project": id},
-				fields=['module_name', 'project', 'status', 'task', 'module_description'])
+				fields=['module_name', 'project', 'status', 'task', 'module_description'],
+				limit_page_length=200)
 
 		screens = frappe.db.get_list("Screen",
 				filters={"project": id},
-				fields=['screen_name', 'project', 'module', 'status', 'task', 'screen_description', 'development_task', 'testing_task'])
+				fields=['screen_name', 'project', 'module', 'status', 'task', 'screen_description', 'development_task', 'testing_task'],
+				limit_page_length=200)
 	
 		functionality = frappe.db.get_list('Functionality',
 						filters={'project': id},
-						fields=['subject','status','task','description','name']
+						fields=['subject','status','task','description','name'],
+						limit_page_length=200
 						)
 		
 		functionality_names = []
@@ -193,7 +209,8 @@ def get_data_project(id, type):
 
 		checkpoints = frappe.db.get_list('Functional Check Points',
 						filters={"parent": ["in", functionality_names]},
-						fields=['subject','status','task']
+						fields=['subject','status','task'],
+						limit_page_length=200
 						)
 		
 		functionality_task = []
@@ -237,7 +254,8 @@ def get_data_project(id, type):
 
 		bugs = frappe.db.get_list('Bug Sheet',
 						filters={"project": id},
-						fields=['bug_title','name','category', 'priority', 'status', 'bug_description', 'creation']
+						fields=['bug_title','name','category', 'priority', 'status', 'bug_description', 'creation'],
+						limit_page_length=200
 						)
 		
 	return {"data":data[0], "screenshots":screenshots, "task_list": task_list,"bug_options": bug_options,

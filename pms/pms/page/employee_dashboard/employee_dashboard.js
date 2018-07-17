@@ -4,7 +4,13 @@ frappe.pages['employee-dashboard'].on_page_load = function(wrapper) {
         title: 'Dashboard',
         single_column: true
     });
-    
+    console.log(page)
+    frappe.breadcrumbs.add("PMS");
+    // $(frappe.render_template("dash", {content: frappe.session.user_fullname})).appendTo(page.body);
+    $('.page-content').find('.layout-main').append(frappe.render_template("dash", {
+                     content: frappe.session.user_fullname
+                 })
+    );   
 }
 
 
@@ -32,11 +38,12 @@ $('#filterid').click(function() {
 
 
 	$(".filter_list").html('<ul id="treeDemo" class="ztree"></ul>');
-    $('.page-content').find('.layout-main').html('');
-	$('.page-content').find('.layout-main').html(frappe.render_template("dash", {
-						content: frappe.session.user_fullname
-					})
-	);
+    // $(frappe.render_template("dash", {content: frappe.session.user_fullname})).appendTo(page.main);
+ //    $('.page-content').find('.layout-main').html('');
+	// $('.page-content').find('.layout-main').html(frappe.render_template("dash", {
+	// 					content: frappe.session.user_fullname
+	// 				})
+	// );
 
     var a;
     $.ajax({
@@ -148,9 +155,9 @@ function module_click(treeNode) {
         callback: function(r) {
             $("html").css("overflow-y", "hidden");
             console.log(r.message);
-            $(".title-text").html(treeNode.getParentNode().name+
-                '<i class="fa fa-chevron-right mo" aria-hidden="true"></i>'+treeNode.name);
             $('.maindiv').html(frappe.render_template("module_detail_tab", {content: r.message}));
+            // $(".title-text").append(treeNode.getParentNode().name+
+            //     '<i class="fa fa-chevron-right mo" aria-hidden="true"></i>'+treeNode.name);
 
         }
     });
@@ -167,10 +174,10 @@ function screen_click(treeNode) {
 		callback: function(r) {
 			console.log(r.message);
             $("html").css("overflow-y", "hidden");
-            $(".title-text").html(treeNode.getParentNode().getParentNode().name+
-                '<i class="fa fa-chevron-right mo" aria-hidden="true"></i>'+treeNode.getParentNode().name+
-                '<i class="fa fa-chevron-right mo" aria-hidden="true"></i>'+treeNode.name);
-			$('.maindiv').html(frappe.render_template("screen_detail_tab", {content: r.message}));
+            $('.maindiv').html(frappe.render_template("screen_detail_tab", {content: r.message}));
+            // $(".title-text").append(treeNode.getParentNode().getParentNode().name+
+            //     '<i class="fa fa-chevron-right mo" aria-hidden="true"></i>'+treeNode.getParentNode().name+
+            //     '<i class="fa fa-chevron-right mo" aria-hidden="true"></i>'+treeNode.name);
 
 		}
 	});
