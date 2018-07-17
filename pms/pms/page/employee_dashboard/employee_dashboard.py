@@ -8,6 +8,8 @@ from frappe import _, throw
 
 options = ['Open', 'Working', 'Pending Review', 'Overdue', 'Closed', 'Cancelled']
 bug_options = ['Fixed','Closed','Open','Re-open','Verified']
+taskpriority = ['Low', 'Medium', 'High', 'Urgent']
+bugpriority = ['High', 'Medium', 'Low']
 
 @frappe.whitelist()
 def get_data_screen(id, type, module, project):
@@ -81,8 +83,8 @@ def get_data_screen(id, type, module, project):
 						limit_page_length=200
 						)
 		
-	return {"data":data[0], "screenshots":screenshots, "options": options, "bug_options": bug_options,
-			"functionality": functionality,"task_list": task_list, "bugs": bugs}
+	return {"data":data[0], "screenshots":screenshots, "options": options, "bug_options": bug_options, "bugpriority": bugpriority,
+			"functionality": functionality,"task_list": task_list, "bugs": bugs, "taskpriority": taskpriority}
 
 @frappe.whitelist()
 def get_data_module(id, type, project):
@@ -170,7 +172,7 @@ def get_data_module(id, type, project):
 		
 	return {"project": project, "module": id, "project_name": project_name, "module_name": module_name,
 			"data":data[0], "screenshots":screenshots, "options": options, "bug_options": bug_options,
-			"functionality": functionality,"task_list": task_list, "bugs": bugs, "screens": screens}
+			"functionality": functionality,"task_list": task_list, "bugs": bugs, "screens": screens, "taskpriority": taskpriority, "bugpriority": bugpriority,}
 
 @frappe.whitelist()
 def get_data_project(id, type):
@@ -259,7 +261,7 @@ def get_data_project(id, type):
 						)
 		
 	return {"data":data[0], "screenshots":screenshots, "task_list": task_list,"bug_options": bug_options,
-			"bugs": bugs, "modules":modules, "screens":screens, "options": options}
+			"bugs": bugs, "modules":modules, "screens":screens, "options": options, "bugpriority": bugpriority,}
 
 
 

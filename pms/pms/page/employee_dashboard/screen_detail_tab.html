@@ -169,10 +169,32 @@
     <div id="tasks" class="tab-pane fade in active">
         {% if(content.task_list.length > 0) { %}
             <div class="row">
+                <div class="col-md-12" style="width: 101%; margin-left: -10px;">
+                    <div class="page-form flex">
+                        <div class="form-group frappe-control input-max-width col-md-2" data-fieldtype="Select" data-fieldname="priority" title="" data-original-title="Priority">
+                            <select onchange="taskfilterchange(this.value)" type="text" autocomplete="off" class="input-with-feedback form-control hidden-sm hidden-xs input-sm" maxlength="140" data-fieldtype="Select" data-fieldname="priority" placeholder="Priority">
+                            <option selected="selected" hidden disabled>Filter By Status</option>
+                            {% for(var z=0; z< content.options.length; z++) { %}
+                                <option value="{{content.options[z]}}" >{{content.options[z]}}</option>
+                            {% } %}
+                            </select>
+                        </div>
+                        <div class="form-group frappe-control input-max-width col-md-2" data-fieldtype="Select" data-fieldname="priority" title="" data-original-title="Priority">
+                            <select onchange="taskprioritychange(this.value)" type="text" autocomplete="off" class="input-with-feedback form-control hidden-sm hidden-xs input-sm" maxlength="140" data-fieldtype="Select" data-fieldname="priority" placeholder="Priority">
+                            <option selected="selected" hidden disabled>Filter By Priority</option>
+                            {% for(var z=0; z< content.taskpriority.length; z++) { %}
+                                <option value="{{content.taskpriority[z]}}" >{{content.taskpriority[z]}}</option>
+                            {% } %}
+                            </select>
+                        </div>                        
+                    </div>                    
+                </div>
                 <div class="col-md-4 taskside">
                     <ul class="nav nav-tabs row jo">
                         {% for(var y=0; y < content.task_list.length; y++) { %}
-                            <li class="col-md-12 {% if(y == 0) { %} active {% } %} sidetab">
+                            <li class="col-md-12 {% if(y == 0) { %} active {% } %} sidetab"
+                                data-status="{{content.task_list[y].status}}" 
+                                data-priority="{{content.task_list[y].priority}}">
                                 <a data-toggle="tab" href="#{{content.task_list[y].name}}">
                                     <div class="card">
                                       <div class="card-body">
@@ -267,10 +289,32 @@
     <div id="bugs" class="tab-pane fade">
         {% if(content.bugs.length > 0) { %}
             <div class="row">
+                <div class="col-md-12" style="width: 101%; margin-left: -10px;">
+                    <div class="page-form flex">
+                        <div class="form-group frappe-control input-max-width col-md-2" data-fieldtype="Select" data-fieldname="priority" title="" data-original-title="Priority">
+                            <select onchange="bugfilterchange(this.value)" type="text" autocomplete="off" class="input-with-feedback form-control hidden-sm hidden-xs input-sm" maxlength="140" data-fieldtype="Select" data-fieldname="priority" placeholder="Priority">
+                            <option selected="selected" hidden disabled>Filter By Status</option>
+                            {% for(var z=0; z< content.bug_options.length; z++) { %}
+                                <option value="{{content.bug_options[z]}}" >{{content.bug_options[z]}}</option>
+                            {% } %}
+                            </select>
+                        </div>
+                        <div class="form-group frappe-control input-max-width col-md-2" data-fieldtype="Select" data-fieldname="priority" title="" data-original-title="Priority">
+                            <select onchange="bugprioritychange(this.value)" type="text" autocomplete="off" class="input-with-feedback form-control hidden-sm hidden-xs input-sm" maxlength="140" data-fieldtype="Select" data-fieldname="priority" placeholder="Priority">
+                            <option selected="selected" hidden disabled>Filter By Priority</option>
+                            {% for(var z=0; z< content.bugpriority.length; z++) { %}
+                                <option value="{{content.bugpriority[z]}}" >{{content.bugpriority[z]}}</option>
+                            {% } %}
+                            </select>
+                        </div>                        
+                    </div>                    
+                </div>
                 <div class="col-md-4 bugside">
                     <ul class="nav nav-tabs row jo">
                         {% for(var y=0; y < content.bugs.length; y++) { %}
-                            <li class="col-md-12 {% if(y == 0) { %} active {% } %} sidetab">
+                            <li class="col-md-12 {% if(y == 0) { %} active {% } %} sidetab"
+                                data-status="{{content.bugs[y].status}}" 
+                                data-priority="{{content.bugs[y].priority}}">
                                 <a data-toggle="tab" href="#{{content.bugs[y].name}}">
                                     <div class="card">
                                       <div class="card-body">
