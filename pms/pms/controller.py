@@ -100,7 +100,7 @@ def senddailytimesheet(allow_guest=True):
 								limit_page_length=200
 								)
 			for z in x.tasks:
-				x.tasks_details = frappe.db.get_list("Task", 
+				z.tasks_details = frappe.db.get_list("Task", 
 							fields=['subject', 'status', 'priority', 'description', 'name'],
 							filters={'name': z.name},
 							limit_page_length=200
