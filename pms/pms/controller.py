@@ -111,12 +111,12 @@ def senddailytimesheet(allow_guest=True):
 	# 	table = table + '<tr><td>'+str(y.project_name)+'</td><td>'+str(y.opentasks)+'</td><td>'+str(y.closedtasks)+'</td><td>'+str(y.openbugs)+'</td><td>'+str(y.closedbugs)+'</td></tr>'
 
 	# table = table + '</table>'	
-	# data = 'sample'
+	data = 'sample'
 
 	frappe.sendmail(recipients=['vigneshwaran@valiantsystems.com'],
 		sender = "Testing Valiant2 <testing.valiant2@gmail.com>",
-		message=table,
-		subject=Employee)
+		message=Employee,
+		subject=data)
 	return Employee
 
 
