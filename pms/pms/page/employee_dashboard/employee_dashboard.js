@@ -55,14 +55,17 @@ $('#filterid').click(function() {
     });
         var zTreeObj;
         function myOnClick(event, treeId, treeNode) {
+            var ops = $(".maindiv ul.nav-tabs li.active").text().trim().split(' ')[0];
+            var opslen = ops.length;
+            
   			if (treeNode.type == "project") {
-  				project_click(treeNode)
+  				project_click(treeNode, ops, opslen)
   			}
   			if (treeNode.type == "module") {
-  				module_click(treeNode)
+  				module_click(treeNode, ops, opslen)
   			}  		
   			if (treeNode.type == "screen") {
-  				screen_click(treeNode)
+  				screen_click(treeNode, ops, opslen)
   			}  		
 
         };
@@ -144,7 +147,7 @@ function project_click(treeNode) {
     //     }
     // });
 }
-function module_click(treeNode) {
+function module_click(treeNode, ops, opslen) {
     frappe.call({
         method: "pms.pms.page.employee_dashboard.employee_dashboard.get_data_module",
         args:{
@@ -155,14 +158,14 @@ function module_click(treeNode) {
         callback: function(r) {
             $("html").css("overflow-y", "hidden");
             console.log(r.message);
-            $('.maindiv').html(frappe.render_template("module_detail_tab", {content: r.message}));
+            $('.maindiv').html(frappe.render_template("module_detail_tab", {content: r.message, ops: ops, opslen: opslen}));
             // $(".title-text").append(treeNode.getParentNode().name+
             //     '<i class="fa fa-chevron-right mo" aria-hidden="true"></i>'+treeNode.name);
 
         }
     });
 }
-function screen_click(treeNode) {
+function screen_click(treeNode, ops, opslen) {
 	frappe.call({
 		method: "pms.pms.page.employee_dashboard.employee_dashboard.get_data_screen",
 		args:{
@@ -174,7 +177,7 @@ function screen_click(treeNode) {
 		callback: function(r) {
 			console.log(r.message);
             $("html").css("overflow-y", "hidden");
-            $('.maindiv').html(frappe.render_template("screen_detail_tab", {content: r.message}));
+            $('.maindiv').html(frappe.render_template("screen_detail_tab", {content: r.message, ops: ops, opslen: opslen}));
             // $(".title-text").append(treeNode.getParentNode().getParentNode().name+
             //     '<i class="fa fa-chevron-right mo" aria-hidden="true"></i>'+treeNode.getParentNode().name+
             //     '<i class="fa fa-chevron-right mo" aria-hidden="true"></i>'+treeNode.name);

@@ -11,6 +11,9 @@ from frappe import _, throw
 
 class BugSheet(Document):
 	pass
+	
+
+
 
 @frappe.whitelist()
 def get_users(names):

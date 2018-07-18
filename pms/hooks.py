@@ -91,13 +91,13 @@ fixtures = ["Custom Field"]
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
 # 	"all": [
 # 		"pms.tasks.all"
 # 	],
-# 	"daily": [
-# 		"pms.tasks.daily"
-# 	],
+	"daily": [
+		"pms.pms.controller.senddailytask"
+	],
 # 	"hourly": [
 # 		"pms.tasks.hourly"
 # 	],
@@ -107,7 +107,7 @@ fixtures = ["Custom Field"]
 # 	"monthly": [
 # 		"pms.tasks.monthly"
 # 	]
-# }
+}
 
 # Testing
 # -------

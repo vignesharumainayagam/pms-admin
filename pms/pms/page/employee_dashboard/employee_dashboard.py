@@ -75,7 +75,7 @@ def get_data_screen(id, type, module, project):
 							"exp_end_date":frappe.db.get_value("Task", y, "exp_end_date"),
 							 "priority":frappe.db.get_value("Task", y, "priority"),
 							 "subject":frappe.db.get_value("Task", y, "subject"), "status":frappe.db.get_value("Task", y, "status"),
-							  "created_date":frappe.db.get_value("Task", y, "creation")})
+							  "created_date":frappe.db.get_value("Task", y, "creation").date()})
 
 		bugs = frappe.db.get_list('Bug Sheet',
 						filters={"project": project, "module": module, "screen": id},
@@ -162,7 +162,7 @@ def get_data_module(id, type, project):
 							"exp_end_date":frappe.db.get_value("Task", y, "exp_end_date"),
 							 "priority":frappe.db.get_value("Task", y, "priority"),
 							 "subject":frappe.db.get_value("Task", y, "subject"), "status":frappe.db.get_value("Task", y, "status"),
-							  "created_date":frappe.db.get_value("Task", y, "creation")})
+							  "created_date":frappe.db.get_value("Task", y, "creation").date()})
 
 		bugs = frappe.db.get_list('Bug Sheet',
 						filters={"project": project, "module": id},
@@ -252,7 +252,7 @@ def get_data_project(id, type):
 							"exp_end_date":frappe.db.get_value("Task", y, "exp_end_date"),
 							 "priority":frappe.db.get_value("Task", y, "priority"),
 							 "subject":frappe.db.get_value("Task", y, "subject"), "status":frappe.db.get_value("Task", y, "status"),
-							  "created_date":frappe.db.get_value("Task", y, "creation")})
+							  "created_date":frappe.db.get_value("Task", y, "creation").date()})
 
 		bugs = frappe.db.get_list('Bug Sheet',
 						filters={"project": id},

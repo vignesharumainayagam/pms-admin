@@ -22,31 +22,27 @@
     #page-employee-dashboard .tab-content {
       margin-right: 0px;
     }
-    #page-employee-dashboard .bugmain {
-    padding-bottom: 50px;        
+    #page-employee-dashboard .bugmain {        
     max-height: -webkit-fill-available;
     overflow-y: auto;
     padding-left: 25px;
     margin-left: -15px;
     }  
-    #page-employee-dashboard .taskside{
-    padding-bottom: 50px;      
+    #page-employee-dashboard .taskside{      
     border-right: 1px solid #dedede;    
     min-height: -webkit-fill-available;    
     max-height: 500px;
     overflow-y: auto;
     width: 33%;
     }
-    #page-employee-dashboard .bugside{
-    padding-bottom: 50px;      
+    #page-employee-dashboard .bugside{      
     border-right: 1px solid #dedede;    
     min-height: -webkit-fill-available;    
     max-height: 500px;
     overflow-y: auto;
     width: 33%;
     }
-    #page-employee-dashboard .taskmain{
-    padding-bottom: 50px;      
+    #page-employee-dashboard .taskmain{      
     max-height: -webkit-fill-available;;
     overflow-y: auto;
     padding-left: 30px;
@@ -108,19 +104,24 @@
 </style>
 
 <ul class="nav nav-tabs row">
-    <li class="active col-md-4" style="width: 33%;"><a data-toggle="tab" href="#tasks">
+    <li class="{% if(ops == "Tasks" || opslen == 0 ) { %} active {% } %} 
+        col-md-4" 
+        style="width: 33%;"><a data-toggle="tab" href="#tasks">
         <i class="fa fa-tasks fa-lg mg" aria-hidden="true"></i>
     Tasks</a></li>
-    <li class="col-md-4" style="width: 33%;"><a data-toggle="tab" href="#bugs">
+    <li class="{% if(ops == "Bugs") { %} active {% } %} 
+        col-md-4" style="width: 33%;"><a data-toggle="tab" href="#bugs">
         <i class="fa fa-exclamation-triangle fa-lg mg" aria-hidden="true"></i>
     Bugs</a></li>
-    <li class="col-md-4" style="width: 33%;"><a data-toggle="tab" href="#info">
+    <li class="{% if(ops == "Info") { %} active {% } %} 
+        col-md-4" style="width: 33%;"><a data-toggle="tab" href="#info">
         <i class="fa fa-info-circle fa-lg mg" aria-hidden="true"></i>
     Info</a></li>
+
 </ul>
 
 <div class="tab-content maini">
-    <div id="info" class="tab-pane fade inco">
+    <div id="info" class="tab-pane fade {% if(ops == "Info") { %} in active {% } %} inco">
         <div class="row">
             <div class="col-md-3">
                 <h4>
@@ -174,12 +175,12 @@
             </div>       
         </div>
     </div>
-    <div id="tasks" class="tab-pane fade in active">
+    <div id="tasks" class="tab-pane fade {% if(ops == "Tasks" || opslen == 0 ) { %} in active {% } %}">
         {% if(content.task_list.length > 0) { %}
             <div class="row">
-                <div class="col-md-12" style="width: 101%; margin-left: -10px;">
-                    <div class="page-form flex">
-                        <div class="form-group frappe-control input-max-width col-md-2" data-fieldtype="Select" data-fieldname="priority" title="" data-original-title="Priority">
+                <div class="col-md-4 taskside">
+                    <div class="page-form flex" style="width: 110%; margin-left: -10px;">
+                        <div class="form-group frappe-control input-max-width col-md-6" data-fieldtype="Select" data-fieldname="priority" title="" data-original-title="Priority">
                             <select onchange="taskfilterchange(this.value)" type="text" autocomplete="off" class="input-with-feedback form-control hidden-sm hidden-xs input-sm" maxlength="140" data-fieldtype="Select" data-fieldname="priority" placeholder="Priority">
                             <option selected="selected" hidden disabled>Filter By Status</option>
                             {% for(var z=0; z< content.options.length; z++) { %}
@@ -187,7 +188,7 @@
                             {% } %}
                             </select>
                         </div>
-                        <div class="form-group frappe-control input-max-width col-md-2" data-fieldtype="Select" data-fieldname="priority" title="" data-original-title="Priority">
+                        <div class="form-group frappe-control input-max-width col-md-6" data-fieldtype="Select" data-fieldname="priority" title="" data-original-title="Priority">
                             <select onchange="taskprioritychange(this.value)" type="text" autocomplete="off" class="input-with-feedback form-control hidden-sm hidden-xs input-sm" maxlength="140" data-fieldtype="Select" data-fieldname="priority" placeholder="Priority">
                             <option selected="selected" hidden disabled>Filter By Priority</option>
                             {% for(var z=0; z< content.taskpriority.length; z++) { %}
@@ -195,9 +196,7 @@
                             {% } %}
                             </select>
                         </div>                        
-                    </div>                    
-                </div>
-                <div class="col-md-4 taskside">
+                    </div>  
                     <ul class="nav nav-tabs row jo">
                         {% for(var y=0; y < content.task_list.length; y++) { %}
                             <li class="col-md-12 {% if(y == 0) { %} active {% } %} sidetab"
@@ -229,6 +228,9 @@
                                                 <span style="float: left; margin-top: 15px;">
                                                 {{content.task_list[y].created_date}}
                                                 </span>
+                                                <span style="float: right; margin-top: 15px;">
+                                                    {{content.task_list[y].priority}}
+                                                </span>
                                             </div>
                                         </div>
                                       </div>
@@ -238,7 +240,7 @@
                         {% } %}    
                     </ul>
                 </div>
-                <div class="col-md-8 bugmain taskmain">
+                <div class="col-md-8 taskmain">
                     <div class="tab-content">
                         {% for(var y=0; y < content.task_list.length; y++) { %}
                             <div class="tab-pane {% if(y == 0) { %} active {% } %}" 
@@ -294,12 +296,12 @@
             </div>
         {% } %}
     </div> 
-    <div id="bugs" class="tab-pane fade">
+    <div id="bugs" class="tab-pane fade {% if(ops == "Bugs") { %} in active {% } %}">
         {% if(content.bugs.length > 0) { %}
             <div class="row">
-                <div class="col-md-12" style="width: 101%; margin-left: -10px;">
-                    <div class="page-form flex">
-                        <div class="form-group frappe-control input-max-width col-md-2" data-fieldtype="Select" data-fieldname="priority" title="" data-original-title="Priority">
+                <div class="col-md-4 bugside">
+                    <div class="page-form flex" style="width: 110%; margin-left: -10px;">
+                        <div class="form-group frappe-control input-max-width col-md-6" data-fieldtype="Select" data-fieldname="priority" title="" data-original-title="Priority">
                             <select onchange="bugfilterchange(this.value)" type="text" autocomplete="off" class="input-with-feedback form-control hidden-sm hidden-xs input-sm" maxlength="140" data-fieldtype="Select" data-fieldname="priority" placeholder="Priority">
                             <option selected="selected" hidden disabled>Filter By Status</option>
                             {% for(var z=0; z< content.bug_options.length; z++) { %}
@@ -307,7 +309,7 @@
                             {% } %}
                             </select>
                         </div>
-                        <div class="form-group frappe-control input-max-width col-md-2" data-fieldtype="Select" data-fieldname="priority" title="" data-original-title="Priority">
+                        <div class="form-group frappe-control input-max-width col-md-6" data-fieldtype="Select" data-fieldname="priority" title="" data-original-title="Priority">
                             <select onchange="bugprioritychange(this.value)" type="text" autocomplete="off" class="input-with-feedback form-control hidden-sm hidden-xs input-sm" maxlength="140" data-fieldtype="Select" data-fieldname="priority" placeholder="Priority">
                             <option selected="selected" hidden disabled>Filter By Priority</option>
                             {% for(var z=0; z< content.bugpriority.length; z++) { %}
@@ -315,9 +317,7 @@
                             {% } %}
                             </select>
                         </div>                        
-                    </div>                    
-                </div>
-                <div class="col-md-4 bugside">
+                    </div> 
                     <ul class="nav nav-tabs row jo">
                         {% for(var y=0; y < content.bugs.length; y++) { %}
                             <li class="col-md-12 {% if(y == 0) { %} active {% } %} sidetab"
@@ -348,6 +348,9 @@
                                             <div class="col-md-12">
                                                 <span style="float: left; margin-top: 15px;">
                                                 {{content.bugs[y].creation}}
+                                                </span>
+                                                <span style="float: right; margin-top: 15px;">
+                                                    {{content.bugs[y].priority}}
                                                 </span>
                                             </div>
                                         </div>
