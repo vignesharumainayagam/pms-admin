@@ -100,13 +100,11 @@ def senddailytimesheet(allow_guest=True):
 								limit_page_length=200
 								)
 			for q in y.tasks:
-				q.subject = frappe.db.get_value('Task', y.task, 'subject')
-				q.status = frappe.db.get_value('Task', y.task, 'status')
-				q.priority = frappe.db.get_value('Task', y.task, 'priority')
-				q.description = frappe.db.get_value('Task', y.task, 'priority')
-				q.name = frappe.db.get_value('Task', y.task, 'name')
-
-
+				q.tasks_details = frappe.db.get_list("Task", 
+							fields=['subject', 'status', 'priority', 'description', 'name'],
+							filters={'name': q.task},
+							limit_page_length=200
+							)
 
 	# table = '<table cellpading="5" style="border-collapse: collapse;" border="1"><tr><th>Project Name</th><th>Open Tasks</th><th>Closed Tasks</th><th>Open Bugs</th><th>Closed Bugs</th></tr>'
 	# for y in projects:
