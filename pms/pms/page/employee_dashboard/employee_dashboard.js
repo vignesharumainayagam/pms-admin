@@ -156,7 +156,7 @@ function module_click(treeNode, ops, opslen) {
             id: treeNode.idname,
         },
         callback: function(r) {
-            $("html").css("overflow-y", "hidden");
+            // $("html").css("overflow-y", "hidden");
             console.log(r.message);
             $('.maindiv').html(frappe.render_template("module_detail_tab", {content: r.message, ops: ops, opslen: opslen}));
             // $(".title-text").append(treeNode.getParentNode().name+
@@ -176,7 +176,7 @@ function screen_click(treeNode, ops, opslen) {
 		},
 		callback: function(r) {
 			console.log(r.message);
-            $("html").css("overflow-y", "hidden");
+            // $("html").css("overflow-y", "hidden");
             $('.maindiv').html(frappe.render_template("screen_detail_tab", {content: r.message, ops: ops, opslen: opslen}));
             // $(".title-text").append(treeNode.getParentNode().getParentNode().name+
             //     '<i class="fa fa-chevron-right mo" aria-hidden="true"></i>'+treeNode.getParentNode().name+

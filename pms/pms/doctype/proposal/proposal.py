@@ -30,4 +30,18 @@ def get_data_from_template(template):
 			fields = ['title', 'content'],
 			filters = {'parent': template},
 			order_by = "idx")
+
+	data1 = frappe.db.get_list('Proposal Samples',
+			fields = ['image', 'url'],
+			filters = {'parent': template},
+			order_by = "idx")
+	return data,data1
+
+@frappe.whitelist()
+def get_items_from_template(template,currency):
+	data = frappe.db.get_list('Proposal Child',
+			fields = ['item', 'description', 'price', 'qty', 'rate', 'currency'],
+			filters = {'parent': template, 'currency': currency},
+			order_by = "idx")
+
 	return data

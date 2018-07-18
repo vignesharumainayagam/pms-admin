@@ -103,12 +103,12 @@ strong {
             </div>
             {% endfor %}
         </div>
-        <span style="text-decoration: underline;background-color: #ffff00;font-size: 14pt;margin-top: 15px;float: left;/ width: 100%; margin-bottom: 15px;"><strong><span style="font-family: tahoma, arial, helvetica, sans-serif; color: #000000; text-decoration: underline;">COST &amp; ESTIMATION</span></strong>
+        <span style="text-decoration: underline;font-size: 14pt;margin-top: 15px;float: left;/ width: 100%; margin-bottom: 15px;"><strong><span style="font-family: tahoma, arial, helvetica, sans-serif; color: #000000; text-decoration: underline;">COST &amp; ESTIMATION</span></strong>
         </span>
         <table id="item_table">
             <tr>
                 <th>Item</th>
-                <th>Description</th>
+                <!-- <th>Description</th> -->
                 <th>Price</th>
                 <th>Qty</th>
                 <th>Rate</th>
@@ -116,25 +116,29 @@ strong {
             {% for v in items %}
             <tr>
                 <td>{{v.item}}</td>
-                <td>{{v.description}}</td>
-                <td style="text-align: right;">{{symbol}} {{v.price}}</td>
+                <!-- <td>{{v.description}}</td> -->
+                <td style="text-align: right;">{{symbol}}
+                {% set proc_err = v.price %}{{ "%.2f"|format(proc_err) }}</td>
                 <td>{{v.qty}}</td>
-                <td style="text-align: right;">{{symbol}} {{v.rate}}</td>
+                <td style="text-align: right;">{{symbol}}
+                {% set proc_err = v.rate %}{{ "%.2f"|format(proc_err) }}</td>
             </tr>
             {% endfor %}
         </table>
         <table style="float: right; width: 40%; border: none; margin-right: -90px;">
             <tr>
                 <th style="border: none;">Sub Total</th>
-                <th style="border: none;">{{symbol}} {{sub_total}}</th>
+                <th style="border: none;">{{symbol}} 
+                {% set proc_err = sub_total %}{{ "%.2f"|format(proc_err) }}</th>
             </tr>
             <tr>
                 <th style="border: none;">Tax</th>
-                <th style="border: none;">{{symbol}} {{tax}}</th>
+                <th style="border: none;">{{symbol}} {% set proc_err = tax %}{{ "%.2f"|format(proc_err) }}</th>
             </tr>
             <tr>
                 <th style="border: none;">Grand Total</th>
-                <th style="border: none;">{{symbol}} {{grand_total}}</th>
+                <th style="border: none;">{{symbol}}
+                {% set proc_err = grand_total %}{{ "%.2f"|format(proc_err) }}</th>
             </tr>
         </table>
     </div>
@@ -160,11 +164,28 @@ strong {
                             <br><a href="tel:{{client_contact_no}}">{{client_contact_no}}</a> </address>
                     </div>
                 </div>
-                <h4 class="bold">Total: {{symbol}} {{grand_total}} </h4>
+                <h4 class="bold">Total: {{symbol}}
+                {% set proc_err = grand_total %}{{ "%.2f"|format(proc_err) }}</h4>
             </div>
             <div class="col-md-8 mtop15">
-                <button type="submit" onclick="accept()" data-loading-text="Please wait..." autocomplete="off" class="btn btn-success btn-block">Accept</button>
-                <button type="submit" onclick="reject()" data-loading-text="Please wait..." autocomplete="off" class="btn btn-danger btn-block mtop10">Decline</button>
+                {% if (status == "Accept" or "Pending") %}
+                <button id="acceptbtn" type="submit" onclick="accept()" data-loading-text="Please wait..." autocomplete="off" class="btn btn-success btn-block {% if status ==  "Accept" %}disabled{% endif %}">
+                    {% if status ==  "Pending" %}
+                    Accept
+                    {% elif status ==  "Accept" %}
+                    Accepted
+                    {% endif %}
+                </button>
+                {% elif (status == "Reject" or "Pending") %}
+                <button id="rejectbtn" type="submit" onclick="reject()" data-loading-text="Please wait..." autocomplete="off" 
+                class="btn btn-danger btn-block mtop10 {% if status ==  "Reject" %}disabled{% endif %}">
+                    {% if status ==  "Pending" %}
+                    Reject
+                    {% elif status ==  "Reject" %}
+                    Rejected
+                    {% endif %}
+                </button>
+                {% endif %}
             </div>
             <div class="clearfix"></div>
         </div>

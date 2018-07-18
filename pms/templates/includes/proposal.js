@@ -11,9 +11,11 @@ function accept() {
 					},
 					freeze: true,
 					callback: (r) => {
-						frappe.msgprint(__("Successfully Accepted"));
-						$('#acceptbtn').hide();
-						$('#rejectbtn').show();
+						frappe.msgprint(__("Thanks for your acceptanance."));
+						$('#acceptbtn').text('Accepted');
+						$('#acceptbtn').addClass('disabled');
+						$('#rejectbtn').hide();
+
 
 					}
 				});
@@ -30,9 +32,10 @@ function reject() {
 					},
 					freeze: true,
 					callback: (r) => {
-						frappe.msgprint(__("Successfully Rejected"));
+						frappe.msgprint(__("Thanks for your response."));
+						$('#rejectbtn').text('Rejected');
+						$('#rejectbtn').addClass('disabled');
 						$('#rejectbtn').hide();
-						$('#acceptbtn').show();
 
 					}
 				});	
