@@ -94,13 +94,13 @@ def senddailytimesheet(allow_guest=True):
 							)
 
 		for y in x.Timesheet:
-			x.tasks = frappe.db.get_list("Timesheet Detail", 
+			y.tasks = frappe.db.get_list("Timesheet Detail", 
 								fields=['name', 'project', 'task', 'hours', 'from_time', 'to_time'],
 								filters={'parent': y.name},
 								limit_page_length=200
 								)
-			for z in x.tasks:
-				z.tasks_details = frappe.db.get_list("Task", 
+			for q in z.tasks:
+				q.tasks_details = frappe.db.get_list("Task", 
 							fields=['subject', 'status', 'priority', 'description', 'name'],
 							filters={'name': z.name},
 							limit_page_length=200
