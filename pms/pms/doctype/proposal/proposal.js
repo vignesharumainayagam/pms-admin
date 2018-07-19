@@ -2,7 +2,68 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Proposal', {
+	refresh: function (frm) {
+		if(frm.doc.count == 0){
+			frm.add_custom_button(__("Send Mail"), function(){
+				frappe.prompt([{
+					'fieldname': 'subject',
+					'fieldtype': 'Data',
+					'label': __('Subject'),
+					'reqd': 1
+				},
+				{
+					'fieldname': 'email_content',
+					'fieldtype': 'Text Editor',
+					'label': __('Email Content'),
+					'reqd': 1
+				}],
+				function(values){
+					console.log(values)
+					frappe.call({
+						method: "pms.pms.doctype.proposal.proposal.sendproposalemail",
+						args: {
+							route: window.location.origin+'/'+frm.doc.route,
+							title: values.subject,
+							body: values.email_content,
+							email: frm.doc.client_email,
+							cname: frm.doc.client_name,
+							cover: frm.doc.title,
+						},
+						callback: function(r) {
+								frm.set_value("subject", values.subject);
+								console.log(r.message)
+								var freq = r.message;
+								var count = frm.doc.count + 1;
+								frm.set_value("count", count)
+								var t = frappe.datetime.get_today();
+								frm.set_value("first_notification_date", t);
+								refresh_field("first_notification_date");
+								frm.set_value("second_notification_date", frappe.datetime.add_days(frappe.datetime.get_today(), freq*1));
+								frm.set_value("third_notification_date", frappe.datetime.add_days(frappe.datetime.get_today(), freq*2));
+								frm.set_value("fourth_notification_date", frappe.datetime.add_days(frappe.datetime.get_today(), freq*3));							
+								refresh_field("count");
+								frm.save();
+							}
+					});				
+				},
+				__('Email Details'))
+			});
+		}
+		// else if(frm.doc.count > 0){
+		// 	frm.add_custom_button(__("Send Mail"), function(){
+
+		// 		frappe.call({
+		// 			method: "pms.pms.doctype.proposal.proposal.schedulemail",
+		// 			args: {},
+		// 			callback: function(r) {
+		// 					console.log(r.message)
+		// 				}
+		// 		});			
+		// 	});
+		// }
+	},
 	validate: function (frm) {
+		frm.set_value('date', frappe.datetime.get_today());
 		var total = 0;
 		for(var i in frm.doc.items){
 			total += frm.doc.items[i].rate
@@ -11,6 +72,25 @@ frappe.ui.form.on('Proposal', {
 		frm.set_value('tax', frm.doc.sub_total*18/100);
 		frm.set_value('grand_total', frm.doc.sub_total + frm.doc.tax)
 		// body...
+	},
+	lead: function (frm) {
+		if(frm.doc.lead){
+			frappe.call({
+				method: "pms.pms.doctype.proposal.proposal.get_lead_details",
+				args: {
+					lead: frm.doc.lead,
+				},
+				async: false,
+				callback: function(r) {
+					console.log(r.message)
+					frm.set_value('client_name', r.message.lead_name)
+					frm.set_value('client_contact_no', r.message.mobile_no)
+					frm.set_value('client_email', r.message.email_id)
+
+					}
+			});
+		}	
+				
 	},
 	sub_total: function(frm) {
 		frm.set_value('tax', frm.doc.sub_total*18/100);

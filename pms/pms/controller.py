@@ -10,10 +10,6 @@ from frappe.utils import (add_days, getdate, formatdate, date_diff,
 
 
 @frappe.whitelist()
-def create_project_task(doc):
-	pass
-
-@frappe.whitelist()
 def senddailytask(allow_guest=True):	
 	projects = frappe.db.get_list("Project", 
 					fields=['project_name', 'status', 'name', 'priority'],
@@ -88,7 +84,7 @@ def senddailytimesheet(allow_guest=True):
 
 	for x in Employee:
 		x.Timesheet = frappe.db.get_list("Timesheet", 
-							fields=['name'],
+							fields=['name','total_hours'],
 							filters={'employee': x.name, 'start_date': ["=", nowdate()]},
 							limit_page_length=200
 							)
@@ -106,17 +102,18 @@ def senddailytimesheet(allow_guest=True):
 							limit_page_length=200
 							)
 
-	# table = '<table cellpading="5" style="border-collapse: collapse;" border="1"><tr><th>Project Name</th><th>Open Tasks</th><th>Closed Tasks</th><th>Open Bugs</th><th>Closed Bugs</th></tr>'
-	# for y in projects:
-	# 	table = table + '<tr><td>'+str(y.project_name)+'</td><td>'+str(y.opentasks)+'</td><td>'+str(y.closedtasks)+'</td><td>'+str(y.openbugs)+'</td><td>'+str(y.closedbugs)+'</td></tr>'
+	# for e in Employee:
+	# 	table = '<table cellpading="5" style="border-collapse: collapse;" border="1"><tr><th>Employee Name</th><th>Total Hours</th><th>Timesheet Details</th></tr>'
+	# 	for y in projects:
+	# 		table = table + '<tr><td>'+str(e.employee_name)+'</td><td>'+str(e.total_hours)+'</td><td>'+str(y.closedtasks)+'</td></tr>'
 
-	# table = table + '</table>'	
-	data = 'sample'
+	# 	table = table + '</table>'	
+	# data = 'sample'
 
-	frappe.sendmail(recipients=['vigneshwaran@valiantsystems.com'],
-		sender = "Testing Valiant2 <testing.valiant2@gmail.com>",
-		message=Employee,
-		subject=data)
+	# frappe.sendmail(recipients=['vigneshwaran@valiantsystems.com'],
+	# 	sender = "Testing Valiant2 <testing.valiant2@gmail.com>",
+	# 	message=Employee,
+	# 	subject=data)
 	return Employee
 
 

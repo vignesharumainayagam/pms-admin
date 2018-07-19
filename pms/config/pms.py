@@ -66,6 +66,10 @@ def get_data():
 				{
 					"type": "doctype",
 					"name": "Proposal Template"
+				},
+				{
+					"type": "doctype",
+					"name": "Proposal Settings"
 				}
 			]
 		},		

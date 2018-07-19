@@ -95,6 +95,14 @@ scheduler_events = {
 # 	"all": [
 # 		"pms.tasks.all"
 # 	],
+    "cron": {
+        # "0/10 * * * *": [
+        #     "library_management.task.run_every_ten_mins"
+        # ],
+        "30 19 * * *": [
+            "pms.pms.doctype.proposal.proposal.schedulemail"
+        ]
+    },
 	"daily": [
 		"pms.pms.controller.senddailytask"
 	],
