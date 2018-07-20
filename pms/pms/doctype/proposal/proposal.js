@@ -49,18 +49,18 @@ frappe.ui.form.on('Proposal', {
 				__('Email Details'))
 			});
 		}
-		// else if(frm.doc.count > 0){
-		// 	frm.add_custom_button(__("Send Mail"), function(){
+		else if(frm.doc.count > 0){
+			frm.add_custom_button(__("Time Sheet"), function(){
 
-		// 		frappe.call({
-		// 			method: "pms.pms.doctype.proposal.proposal.schedulemail",
-		// 			args: {},
-		// 			callback: function(r) {
-		// 					console.log(r.message)
-		// 				}
-		// 		});			
-		// 	});
-		// }
+				frappe.call({
+					method: "pms.pms.controller.senddailytimesheet",
+					args: {},
+					callback: function(r) {
+							console.log(r.message)
+						}
+				});			
+			});
+		}
 	},
 	validate: function (frm) {
 		frm.set_value('date', frappe.datetime.get_today());
