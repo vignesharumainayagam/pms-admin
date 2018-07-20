@@ -26,12 +26,73 @@ class Proposal(WebsiteGenerator):
 
 
 @frappe.whitelist()
-def sendaccmail():
-	pass
-@frappe.whitelist()
-def sendrejmail():
-	pass
+def sendaccmail(id, location):
+	frappe.db.set_value("Proposal", id, "status", "Accept")
+	data = frappe.db.get_single_value('Proposal Settings', 'acceptance_mail_template')
+	proposals = frappe.db.get_list('Proposal',
+		fields = ["title", "client_email", "client_name", "status", "route", "subject", "grand_total","route"],
+		filters = {'name': ["=", id]},
+		order_by = "idx")[0]	
 
+	tot = str(proposals.grand_total)
+	to_admin = "Hi<br>Client "+proposals.client_name+" accepted the following proposal:<br>\
+                Subject: "+proposals.title+"<br>\
+				Total: "+tot+"<br>\
+				View the proposal on the following link: <a href="+location+">"+proposals.title+"</a><br>\
+				Kind regards,<br>\
+				Admin,<br>\
+				Tridots Tech Pvt Ltd.,"
+
+	to_client = "Hi "+proposals.client_name+",<br>\
+				"+data+"<br>\
+				Kind regards,<br>\
+				Tridots Tech Pvt Ltd.,"				
+	
+	frappe.sendmail(recipients=["vigneshwaran@valiantsystems.com"],
+	message= to_admin,
+	subject= "Customer Accepted Proposal")
+
+
+	frappe.sendmail(recipients=[proposals.client_email],
+	message= to_client,
+	subject= proposals.subject)
+	
+	return data		
+		
+@frappe.whitelist()
+def sendrejmail(id, location):
+	frappe.db.set_value("Proposal", id, "status", "Reject")
+	data = frappe.db.get_single_value('Proposal Settings', 'rejection_mail_template')
+	proposals = frappe.db.get_list('Proposal',
+		fields = ["title", "client_email", "client_name", "status", "symbol", "route", "subject", "grand_total","route"],
+		filters = {'name': ["=", id]},
+		order_by = "idx")[0]	
+
+	tot = str(proposals.grand_total)
+
+	to_client = "Hi "+proposals.client_name+",<br>\
+				"+data+"<br>\
+				Kind regards,<br>\
+				Tridots Tech Pvt Ltd.,"				
+	
+	to_admin = "Hi<br>Client "+proposals.client_name+" rejected the following proposal:<br>\
+                Subject: "+proposals.title+"<br>\
+				Total: "+tot+"<br>\
+				View the proposal on the following link: <a href="+location+">"+proposals.title+"</a><br>\
+				Kind regards,<br>\
+				Admin,<br>\
+				Tridots Tech Pvt Ltd.,"
+	
+	frappe.sendmail(recipients=["vigneshwaran@valiantsystems.com"],
+	message= to_admin,
+	subject= "Customer Rejected Proposal")
+
+	frappe.sendmail(recipients=[proposals.client_email],
+	message= to_client,
+	subject= proposals.subject)
+
+	return to_admin	
+	
 
 @frappe.whitelist()
 def get_data_from_template(template):

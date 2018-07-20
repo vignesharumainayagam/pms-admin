@@ -101,19 +101,26 @@ def senddailytimesheet(allow_guest=True):
 							filters={'name': q.task},
 							limit_page_length=200
 							)
+	
+	table = '<table cellpading="5" style="border-collapse: collapse;" border="1"><tr><th>Employee Name</th><th>Task</th><th>Task Description</th><th>status</th><th>Total Hours</th></tr>'
 
-	# for e in Employee:
-	# 	table = '<table cellpading="5" style="border-collapse: collapse;" border="1"><tr><th>Employee Name</th><th>Total Hours</th><th>Timesheet Details</th></tr>'
-	# 	for y in projects:
+	for e in Employee:
+		for x in e.Timesheet:
+			for y in x.tasks:
+				table += "<tr><td>"+e.employee_name+"</td><td>"+y.tasks_details[0].subject+"</td><td>"+y.tasks_details[0].description+"</td><td>"+y.tasks_details[0].status+"</td><td>"+str(y.hours)+"<td></tr>"
+
+
+	table += "</table>"			
+		# for y in projects:
 	# 		table = table + '<tr><td>'+str(e.employee_name)+'</td><td>'+str(e.total_hours)+'</td><td>'+str(y.closedtasks)+'</td></tr>'
 
 	# 	table = table + '</table>'	
-	# data = 'sample'
+	data = 'sample'
 
-	# frappe.sendmail(recipients=['vigneshwaran@valiantsystems.com'],
-	# 	sender = "Testing Valiant2 <testing.valiant2@gmail.com>",
-	# 	message=Employee,
-	# 	subject=data)
+	frappe.sendmail(recipients=['vigneshwaran@valiantsystems.com'],
+		sender = "Testing Valiant2 <testing.valiant2@gmail.com>",
+		message=table,
+		subject=data)
 	return Employee
 
 

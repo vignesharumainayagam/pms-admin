@@ -2,20 +2,18 @@ var id = $('#page_id').html();
 function accept() {
 
 			frappe.call({
-					method: "frappe.client.set_value",
+					method: "pms.pms.doctype.proposal.proposal.sendaccmail",
 					args: {
-						doctype: "Proposal",
-						name: id,
-						fieldname: "status",
-						value: "Accept",
+						id: id,
+						location: window.location.href,
 					},
 					freeze: true,
 					callback: (r) => {
+						console.log(r.message)
 						frappe.msgprint(__("Thanks for your acceptanance."));
 						$('#acceptbtn').text('Accepted');
 						$('#acceptbtn').addClass('disabled');
 						$('#rejectbtn').hide();
-
 
 					}
 				});
@@ -23,19 +21,18 @@ function accept() {
 
 function reject() {
 			frappe.call({
-					method: "frappe.client.set_value",
+					method: "pms.pms.doctype.proposal.proposal.sendrejmail",
 					args: {
-						doctype: "Proposal",
-						name: id,
-						fieldname: "status",
-						value: "Reject",
+						id: id,
+						location: window.location.href,
 					},
 					freeze: true,
 					callback: (r) => {
+						console.log(r.message)
 						frappe.msgprint(__("Thanks for your response."));
 						$('#rejectbtn').text('Rejected');
 						$('#rejectbtn').addClass('disabled');
-						$('#rejectbtn').hide();
+						$('#acceptbtn').hide();
 
 					}
 				});	

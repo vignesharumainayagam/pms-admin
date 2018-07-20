@@ -124,23 +124,29 @@ strong {
                 {% set proc_err = v.rate %}{{ "%.2f"|format(proc_err) }}</td>
             </tr>
             {% endfor %}
+            <tr>
+                <td style="border: none;"></td>
+                <td style="border: none;"></td>
+                <td style="font-weight: bold; text-align: right;">Sub Total</td>
+                <td style="font-weight: bold; text-align: right;">{{symbol}} 
+                {% set proc_err = sub_total %}{{ "%.2f"|format(proc_err) }}</td>
+            </tr>   
+            <tr>
+                <td style="border: none;"></td>
+                <td style="border: none;"></td>
+                <td style="font-weight: bold; text-align: right;">Tax</td>
+                <td style="font-weight: bold; text-align: right;">{{symbol}}
+                {% set proc_err = tax %}{{ "%.2f"|format(proc_err) }}</td>
+            </tr>       
+            <tr>
+                <td style="border: none;"></td>
+                <td style="border: none;"></td>
+                <td style="font-weight: bold; text-align: right;">Grand Total</td>
+                <td style="font-weight: bold; text-align: right;">{{symbol}} 
+                {% set proc_err = grand_total %}{{ "%.2f"|format(proc_err) }}</td>
+            </tr>                                
         </table>
-        <table style="float: right; width: 40%; border: none; margin-right: -90px;">
-            <tr>
-                <th style="border: none;">Sub Total</th>
-                <th style="border: none;">{{symbol}} 
-                {% set proc_err = sub_total %}{{ "%.2f"|format(proc_err) }}</th>
-            </tr>
-            <tr>
-                <th style="border: none;">Tax</th>
-                <th style="border: none;">{{symbol}} {% set proc_err = tax %}{{ "%.2f"|format(proc_err) }}</th>
-            </tr>
-            <tr>
-                <th style="border: none;">Grand Total</th>
-                <th style="border: none;">{{symbol}}
-                {% set proc_err = grand_total %}{{ "%.2f"|format(proc_err) }}</th>
-            </tr>
-        </table>
+
     </div>
     <div class="col-md-3 proposal-right" id="sidedive">
         <div class="row proposal-right-content">
@@ -168,7 +174,7 @@ strong {
                 {% set proc_err = grand_total %}{{ "%.2f"|format(proc_err) }}</h4>
             </div>
             <div class="col-md-8 mtop15">
-                {% if (status == "Accept" or "Pending") %}
+                {% if (status == "Accept" or status == "Pending") %}
                 <button id="acceptbtn" type="submit" onclick="accept()" data-loading-text="Please wait..." autocomplete="off" class="btn btn-success btn-block {% if status ==  "Accept" %}disabled{% endif %}">
                     {% if status ==  "Pending" %}
                     Accept
@@ -178,7 +184,7 @@ strong {
                 </button>
                 {% endif %}
                 
-                {% if (status == "Reject" or "Pending") %}
+                {% if (status == "Pending" or status == "Reject") %}
                 <button id="rejectbtn" type="submit" onclick="reject()" data-loading-text="Please wait..." autocomplete="off" 
                 class="btn btn-danger btn-block mtop10 {% if status ==  "Reject" %}disabled{% endif %}">
                     {% if status ==  "Pending" %}
